@@ -23,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		74517F16284E3E3E000BF74B /* Cay_Nhi_Phan_Linked.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cay_Nhi_Phan_Linked.h; sourceTree = "<group>"; };
 		748432D8284CDE7A008F745E /* Cau_Truc_Cay */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Cau_Truc_Cay; sourceTree = BUILT_PRODUCTS_DIR; };
 		748432DB284CDE7A008F745E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -41,6 +42,7 @@
 		748432CF284CDE7A008F745E = {
 			isa = PBXGroup;
 			children = (
+				74517F16284E3E3E000BF74B /* Cay_Nhi_Phan_Linked.h */,
 				748432DA284CDE7A008F745E /* Cau_Truc_Cay */,
 				748432D9284CDE7A008F745E /* Products */,
 			);
