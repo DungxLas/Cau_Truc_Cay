@@ -6,6 +6,7 @@
 //
 
 #include <iostream>
+#include <vector>
 
 #include "/Users/phamhungdung/CoDe/C:C++/Cau_Truc_Cay/Cay_Nhi_Phan_Linked.h"
 
@@ -25,19 +26,31 @@ int main() {
     Node *J = GetNode('J');
     Node *K = GetNode('K');
     Node *L = GetNode('L');
+//    Node *Z = GetNode('Z');;
 
     // Bước 2: Tạo ra các mối liên kết giữa các Node với nhau
     Root->Left = B;
+    B->Cha = Root;
     Root->Right = C;
+    C->Cha = Root;
     B->Left = D;
+    D->Cha = B;
     B->Right = E;
+    E->Cha = B;
     C->Left = F;
+    F->Cha = C;
     C->Right = G;
+    G->Cha = C;
     D->Left = H;
+    H->Cha = D;
     D->Right = I;
+    I->Cha = D;
     E->Right = J;
+    J->Cha = E;
     F->Left = K;
+    K->Cha = F;
     G->Right = L;
+    L->Cha = G;
     
     // Duyet
 //    cout << "\nDuyet theo chieu rong: ";
@@ -88,7 +101,58 @@ int main() {
 //    MucCua1Cay_DeQuyDuoi(Root, ChieuCao, 1);
 //    cout << "Chieu cao cua cay: " << ChieuCao << endl;
     
-    cout << "Muc cua Node: " << MucCua1Node_DeQuyThuong(Root, B) << endl;
+//    bool checkNode = false;
+//    int muc;
+//    TimNode(Root, checkNode, L, muc, 1);
+//    if (checkNode == false) {
+//        cout << "Node can tim khong co trong cay!!!" << endl;
+//    }
+//    else {
+//        cout << "Node can tim co trong cay, co muc la: " << muc << endl;
+//    }
+    
+//    int k;
+//    cout << "Can tim cac Node o tang: k = ";
+//    cin >> k;
+//    cout << "Cac Node o tang k = " << k << " la: ";
+//    int count = 0;
+//    CacNodeTangK(Root, k, count, 1);
+//    if (count == 0) {
+//        cout << "=> Khong co Node tren tang " << k << endl;
+//    }
+//    else {
+//        cout << "=> Co " << count << " Node" << endl;
+//    }
+    
+//    int ChieuCao = 0;
+//    MucCua1Cay_DeQuyDuoi(Root, ChieuCao, 1);
+//
+//    if (KiemTraNhiPhanDayDu(Root, ChieuCao) == true) {
+//        cout << "Cay da cho la cay nhi phan day du." << endl;
+//    }
+//    else {
+//        cout << "Cay da cho khong phai la cay nhi phan day du." << endl;
+//    }
+    
+//    if (KiemTraNhiPhanDayDuVector(Root) == true) {
+//            cout << "Cay da cho la cay nhi phan day du." << endl;
+//    }
+//    else {
+//            cout << "Cay da cho khong phai la cay nhi phan day du." << endl;
+//    }
+    
+//    if (KiemTraNhiPhanHoanChinhVector(Root)) {
+//        cout << "Day la cay nhi phan hoan chinh" << endl;
+//    }
+//    else {
+//        cout << "Day khong phai la cay nhi phan hoan chinh" << endl;
+//    }
+    
+    DuyetCay_KoDeQuy_KoNganXep(Root, "NLR");
+    cout << "\n";
+    DuyetCay_KoDeQuy_KoNganXep(Root, "LNR");
+    cout << "\n";
+    DuyetCay_KoDeQuy_KoNganXep(Root, "LRN");
     
     RemoveAll(Root);
     
