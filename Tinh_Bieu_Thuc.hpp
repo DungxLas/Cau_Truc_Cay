@@ -15,22 +15,60 @@
 
 using namespace std;
 
+bool KiemTraToanTu(string s);
+bool KiemTraSo(string s);
+
 vector<string> ChuanHoaBieuThuc(string bieuThuc)
 {
     vector<string> bieuThuc_trungTo;
-    
-    string nhoTam;
+
+    string nhoTam1;
+    string nhoTam2;
     for (int i = 0; i < bieuThuc.length(); ++i) {
         if (bieuThuc[i] == ' ') {
-            bieuThuc_trungTo.push_back(nhoTam);
-            nhoTam.clear();
             continue;
         }
-        nhoTam.push_back(bieuThuc[i]);
+        else if (bieuThuc[i] < 48 || bieuThuc[i] > 57) {
+            nhoTam1.push_back(bieuThuc[i]);
+            bieuThuc_trungTo.push_back(nhoTam1);
+            nhoTam1.clear();
+        }
+        else if (bieuThuc[i] >= 48 && bieuThuc[i] <= 57) {
+            nhoTam2.push_back(bieuThuc[i]);
+            if (bieuThuc[i + 1] < 48 || bieuThuc[i + 1] > 57) {
+                bieuThuc_trungTo.push_back(nhoTam2);
+                nhoTam2.clear();
+            }
+        }
     }
-    bieuThuc_trungTo.push_back(nhoTam);
-    
+
     return bieuThuc_trungTo;
+}
+
+//vector<string> ChuanHoaBieuThuc(string bieuThuc)
+//{
+//    vector<string> bieuThuc_trungTo;
+//
+//    string nhoTam;
+//    for (int i = 0; i < bieuThuc.length(); ++i) {
+//        if (bieuThuc[i] == ' ') {
+//            bieuThuc_trungTo.push_back(nhoTam);
+//            nhoTam.clear();
+//            continue;
+//        }
+//        nhoTam.push_back(bieuThuc[i]);
+//    }
+//    bieuThuc_trungTo.push_back(nhoTam);
+//
+//    return bieuThuc_trungTo;
+//}
+
+bool KiemTraSo(string s)
+{
+    if (48 <= s[0] && s[0] <= 57) {
+        return true;
+    }
+    return false;
 }
 
 bool KiemTraToanTu(string s)
@@ -60,7 +98,7 @@ vector<string> TrungToThanhHauTo(string bieuThuc)
     stack<string> nganXep;
     int sizeTrungTo = bieuThuc_trungTo.size();
     for (int i = 0; i < sizeTrungTo; ++i) {
-        if (48 <= bieuThuc_trungTo[i][0] && bieuThuc_trungTo[i][0] <= 57)
+        if (KiemTraSo(bieuThuc_trungTo[i]) == true)
         {
             bieuThuc_hauTo.push_back(bieuThuc_trungTo[i]);
         }
