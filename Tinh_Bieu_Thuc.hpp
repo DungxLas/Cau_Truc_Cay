@@ -18,6 +18,7 @@ using namespace std;
 bool KiemTraToanTu(string s);
 bool KiemTraSo(string s);
 
+//Tach cac phan tu trong bieu thuc ban dau
 vector<string> ChuanHoaBieuThuc(string bieuThuc)
 {
     vector<string> bieuThuc_trungTo;
@@ -29,13 +30,28 @@ vector<string> ChuanHoaBieuThuc(string bieuThuc)
             continue;
         }
         else if (bieuThuc[i] < 48 || bieuThuc[i] > 57) {
-            nhoTam1.push_back(bieuThuc[i]);
-            bieuThuc_trungTo.push_back(nhoTam1);
-            nhoTam1.clear();
+            if (bieuThuc[i] == '/' || bieuThuc[i] == '*'|| bieuThuc[i] == '('|| bieuThuc[i] == ')') {
+                nhoTam1.push_back(bieuThuc[i]);
+                bieuThuc_trungTo.push_back(nhoTam1);
+                nhoTam1.clear();
+            }
+            else if (bieuThuc[i] == '+' || bieuThuc[i] == '-') {
+                if (i == 0 || bieuThuc[i - 1] == '(' || bieuThuc[i - 1] == '*' || bieuThuc[i - 1] == '/' || bieuThuc[i - 1] == '+' || bieuThuc[i - 1] == '-' || bieuThuc[i - 1] == ' ') {
+                    nhoTam2.push_back(bieuThuc[i]);
+                }
+                else if (bieuThuc[i - 1] == ')' || (bieuThuc[i - 1] >= 48 && bieuThuc[i - 1] <= 57)) {
+                    nhoTam1.push_back(bieuThuc[i]);
+                    bieuThuc_trungTo.push_back(nhoTam1);
+                    nhoTam1.clear();
+                }
+            }
+            else if (bieuThuc[i] == '.') {
+                nhoTam2.push_back(bieuThuc[i]);
+            }
         }
         else if (bieuThuc[i] >= 48 && bieuThuc[i] <= 57) {
             nhoTam2.push_back(bieuThuc[i]);
-            if (bieuThuc[i + 1] < 48 || bieuThuc[i + 1] > 57) {
+            if ((bieuThuc[i + 1] < 48 || bieuThuc[i + 1] > 57) && bieuThuc[i + 1] != '.') {
                 bieuThuc_trungTo.push_back(nhoTam2);
                 nhoTam2.clear();
             }
@@ -45,30 +61,9 @@ vector<string> ChuanHoaBieuThuc(string bieuThuc)
     return bieuThuc_trungTo;
 }
 
-//vector<string> ChuanHoaBieuThuc(string bieuThuc)
-//{
-//    vector<string> bieuThuc_trungTo;
-//
-//    string nhoTam;
-//    for (int i = 0; i < bieuThuc.length(); ++i) {
-//        if (bieuThuc[i] == ' ') {
-//            bieuThuc_trungTo.push_back(nhoTam);
-//            nhoTam.clear();
-//            continue;
-//        }
-//        nhoTam.push_back(bieuThuc[i]);
-//    }
-//    bieuThuc_trungTo.push_back(nhoTam);
-//
-//    return bieuThuc_trungTo;
-//}
-
 bool KiemTraSo(string s)
 {
-    if (48 <= s[0] && s[0] <= 57) {
-        return true;
-    }
-    return false;
+    return 48 <= s[s.length() - 1] && s[s.length() - 1] <= 57;
 }
 
 bool KiemTraToanTu(string s)
