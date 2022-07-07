@@ -15,15 +15,16 @@ using namespace std;
 
 int main()
 {
-    string bieuThuc = " -9-(5*8.8/(4+6)-3/(2+1)*23)/100";
+    string bieuThuc = "5 - 8*2 + 9/2 - 6";
     vector<string> bieuThuc_hauTo = TrungToThanhHauTo(bieuThuc);
     
     cout << "Bieu thuc da cho: " << bieuThuc << endl;
     
     cout << "Bieu thuc hau to: ";
-    for (int i = 0; i < bieuThuc_hauTo.size(); ++i) {
-        cout << bieuThuc_hauTo[i] << " ";
-    }
+    Node *Root = ChuyenHauToThanhCay(bieuThuc_hauTo); //Cay bieu thuc
+    
+    TinhGiaTriBieuThuc(Root);
+    cout << "\n Ket qua bieu thuc: " << Root->ketqua << endl;
     
     system("pause");
     return 0;
