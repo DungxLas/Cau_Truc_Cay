@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-    string bieuThuc = "5 - 8*2 + 9/2 - 6";
+    string bieuThuc = "5.5 - 8*2 + 9/2 - 6";
     vector<string> bieuThuc_hauTo = TrungToThanhHauTo(bieuThuc);
     
     cout << "Bieu thuc da cho: " << bieuThuc << endl;
