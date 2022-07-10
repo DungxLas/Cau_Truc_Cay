@@ -12,12 +12,15 @@
 #include <string>
 #include <vector>
 #include <stack>
+#include <cmath>
 
 using namespace std;
 
 //Buoc1: Chuyen bieu thuc ve dang hau to
-bool KiemTraToanTu(string s);
-bool KiemTraSo(string s);
+bool KiemTraChuoiToanTu(string s);
+bool KiemTraKyTuToanTu(char c);
+bool KiemTraChuoiSo(string s);
+bool KiemTraKyTuSo(char c);
 
 //Tach cac phan tu trong bieu thuc ban dau
 vector<string> ChuanHoaBieuThuc(string bieuThuc)
@@ -34,46 +37,59 @@ vector<string> ChuanHoaBieuThuc(string bieuThuc)
                 --sizeBieuThuc;
             }
         }
-        if (bieuThuc[i] < '1' || bieuThuc[i] > '9') {
-            if (bieuThuc[i] == '/' || bieuThuc[i] == '*'|| bieuThuc[i] == '('|| bieuThuc[i] == ')') {
+        if (KiemTraKyTuToanTu(bieuThuc[i]) || bieuThuc[i] == '(' || bieuThuc[i] == ')') {
+            if (bieuThuc[i] == '^' || bieuThuc[i] == '/' || bieuThuc[i] == '*'|| bieuThuc[i] == '('|| bieuThuc[i] == ')') {
                 nhoTam1.push_back(bieuThuc[i]);
                 bieuThuc_trungTo.push_back(nhoTam1);
                 nhoTam1.clear();
             }
             else if (bieuThuc[i] == '+' || bieuThuc[i] == '-') {
-                if (i == 0 || bieuThuc[i - 1] == '(' || bieuThuc[i - 1] == '*' || bieuThuc[i - 1] == '/' || bieuThuc[i - 1] == '+' || bieuThuc[i - 1] == '-') {
+                if (i == 0 || bieuThuc[i - 1] == '(' || KiemTraKyTuToanTu(bieuThuc[i - 1])) {
                     nhoTam2.push_back(bieuThuc[i]);
                 }
-                else if (bieuThuc[i - 1] == ')' || (bieuThuc[i - 1] >= 48 && bieuThuc[i - 1] <= 57)) {
+                else if (bieuThuc[i - 1] == ')' || KiemTraKyTuSo(bieuThuc[i - 1])) {
                     nhoTam1.push_back(bieuThuc[i]);
                     bieuThuc_trungTo.push_back(nhoTam1);
                     nhoTam1.clear();
                 }
             }
-            else if (bieuThuc[i] == '.') {
-                nhoTam2.push_back(bieuThuc[i]);
-            }
         }
-        else if (bieuThuc[i] >= '1' && bieuThuc[i] <= '9') {
+        else if (KiemTraKyTuSo(bieuThuc[i])) {
             nhoTam2.push_back(bieuThuc[i]);
-            if ((bieuThuc[i + 1] < 48 || bieuThuc[i + 1] > 57) && bieuThuc[i + 1] != '.') {
+            if (!KiemTraKyTuSo(bieuThuc[i + 1]) && bieuThuc[i + 1] != '.') {
                 bieuThuc_trungTo.push_back(nhoTam2);
                 nhoTam2.clear();
             }
+        }
+        else if (bieuThuc[i] == '.') {
+            nhoTam2.push_back(bieuThuc[i]);
         }
     }
 
     return bieuThuc_trungTo;
 }
 
-bool KiemTraSo(string s)
+bool KiemTraChuoiSo(string s)
 {
     return 48 <= s[s.length() - 1] && s[s.length() - 1] <= 57;
 }
 
-bool KiemTraToanTu(string s)
+bool KiemTraKyTuSo(char c)
 {
-    if (s == "/" || s == "*" || s == "+" || s == "-") {
+    return 48 <= c && c <= 57;
+}
+
+bool KiemTraChuoiToanTu(string s)
+{
+    if (s == "/" || s == "*" || s == "+" || s == "-" || s == "^") {
+        return true;
+    }
+    return false;
+}
+
+bool KiemTraKyTuToanTu(char c)
+{
+    if (c == '/' || c == '*' || c == '+' || c == '-' || c == '^') {
         return true;
     }
     return false;
@@ -81,6 +97,9 @@ bool KiemTraToanTu(string s)
 
 int TinhDoUuTien(string s)
 {
+    if (s == "^") {
+        return 3;
+    }
     if (s == "*" || s == "/") {
         return 2;
     }
@@ -98,14 +117,14 @@ vector<string> TrungToThanhHauTo(string bieuThuc)
     stack<string> nganXep;
     int sizeTrungTo = bieuThuc_trungTo.size();
     for (int i = 0; i < sizeTrungTo; ++i) {
-        if (KiemTraSo(bieuThuc_trungTo[i]) == true)
+        if (KiemTraChuoiSo(bieuThuc_trungTo[i]) == true)
         {
             bieuThuc_hauTo.push_back(bieuThuc_trungTo[i]);
         }
         else if (bieuThuc_trungTo[i] == "(") {
             nganXep.push(bieuThuc_trungTo[i]);
         }
-        else if (KiemTraToanTu(bieuThuc_trungTo[i]) == true) {
+        else if (KiemTraChuoiToanTu(bieuThuc_trungTo[i]) == true) {
             if (nganXep.empty()) {
                 nganXep.push(bieuThuc_trungTo[i]);
             }
@@ -179,7 +198,7 @@ Node* ChuyenHauToThanhCay(vector<string> bieuThuc_hauto) {
         cout << bieuThuc_hauto[i] << " ";
         
         Node *n = GetNode(bieuThuc_hauto[i]);
-        if (KiemTraToanTu(bieuThuc_hauto[i]) == true) {
+        if (KiemTraChuoiToanTu(bieuThuc_hauto[i]) == true) {
             Node *y = nganXep.top();
             nganXep.pop();
             
@@ -203,7 +222,7 @@ void TinhGiaTriBieuThuc(Node *Root)    // Left-Right-Node
         TinhGiaTriBieuThuc(Root->Left);
         TinhGiaTriBieuThuc(Root->Right);
         
-        if (KiemTraToanTu(Root->Data) == true) {
+        if (KiemTraChuoiToanTu(Root->Data) == true) {
             float x = Root->Left->ketqua;
             float y = Root->Right->ketqua;
             
@@ -222,7 +241,10 @@ void TinhGiaTriBieuThuc(Node *Root)    // Left-Right-Node
                 case '/':
                     Root->ketqua = x / y;
                     break;
-                }
+                case '^':
+                    Root->ketqua = pow(x, y);
+                    break;
+            }
         }
         else {
             Root->ketqua = stof(Root->Data);

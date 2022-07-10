@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		74A107DE286D8FCB006ADCEA /* Tinh_Bieu_Thuc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74A107DC286D8FCB006ADCEA /* Tinh_Bieu_Thuc.cpp */; };
+		74DD728B2877DDA900132A1E /* Tinh_Bieu_Thuc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74A107DC286D8FCB006ADCEA /* Tinh_Bieu_Thuc.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,6 +30,7 @@
 		748432DB284CDE7A008F745E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		74A107DC286D8FCB006ADCEA /* Tinh_Bieu_Thuc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tinh_Bieu_Thuc.cpp; sourceTree = "<group>"; };
 		74A107DD286D8FCB006ADCEA /* Tinh_Bieu_Thuc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tinh_Bieu_Thuc.hpp; sourceTree = "<group>"; };
+		74DD72892877D89900132A1E /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +69,7 @@
 				748432DB284CDE7A008F745E /* main.cpp */,
 				7403940B2869F580000F2C1A /* Doc_Gia.cpp */,
 				74A107DC286D8FCB006ADCEA /* Tinh_Bieu_Thuc.cpp */,
+				74DD72892877D89900132A1E /* test.cpp */,
 			);
 			path = Cau_Truc_Cay;
 			sourceTree = "<group>";
@@ -129,7 +131,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74A107DE286D8FCB006ADCEA /* Tinh_Bieu_Thuc.cpp in Sources */,
+				74DD728B2877DDA900132A1E /* Tinh_Bieu_Thuc.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
