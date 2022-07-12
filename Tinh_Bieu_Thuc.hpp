@@ -19,6 +19,7 @@ using namespace std;
 //Buoc1: Chuyen bieu thuc ve dang hau to
 bool KiemTraChuoiToanTu(string s);
 bool KiemTraKyTuToanTu(char c);
+bool KiemTraKyTuChu(char c);
 bool KiemTraChuoiSo(string s);
 bool KiemTraKyTuSo(char c);
 
@@ -54,6 +55,13 @@ vector<string> ChuanHoaBieuThuc(string bieuThuc)
                 }
             }
         }
+        else if (KiemTraKyTuChu(bieuThuc[i])) {
+            nhoTam2.push_back(bieuThuc[i]);
+            if (!KiemTraKyTuChu(bieuThuc[i + 1])) {
+                bieuThuc_trungTo.push_back(nhoTam2);
+                nhoTam2.clear();
+            }
+        }
         else if (KiemTraKyTuSo(bieuThuc[i])) {
             nhoTam2.push_back(bieuThuc[i]);
             if (!KiemTraKyTuSo(bieuThuc[i + 1]) && bieuThuc[i + 1] != '.') {
@@ -79,6 +87,11 @@ bool KiemTraKyTuSo(char c)
     return 48 <= c && c <= 57;
 }
 
+bool KiemTraKyTuChu(char c)
+{
+    return (c >= 'a' && c <= 'z') || (c >= 'a' && c <= 'Z');
+}
+
 bool KiemTraChuoiToanTu(string s)
 {
     if (s == "/" || s == "*" || s == "+" || s == "-" || s == "^") {
@@ -95,8 +108,16 @@ bool KiemTraKyTuToanTu(char c)
     return false;
 }
 
+bool KiemTraHam1Ngoi(string s)
+{
+    return s == "abs" || s == "sqrt" || s == "sin" || s == "cos" || s == "tan";
+}
+
 int TinhDoUuTien(string s)
 {
+    if (KiemTraHam1Ngoi(s)) {
+        return 4;
+    }
     if (s == "^") {
         return 3;
     }
@@ -124,7 +145,7 @@ vector<string> TrungToThanhHauTo(string bieuThuc)
         else if (bieuThuc_trungTo[i] == "(") {
             nganXep.push(bieuThuc_trungTo[i]);
         }
-        else if (KiemTraChuoiToanTu(bieuThuc_trungTo[i]) == true) {
+        else if (KiemTraChuoiToanTu(bieuThuc_trungTo[i]) || KiemTraHam1Ngoi(bieuThuc_trungTo[i])) {
             if (nganXep.empty()) {
                 nganXep.push(bieuThuc_trungTo[i]);
             }
@@ -198,7 +219,7 @@ Node* ChuyenHauToThanhCay(vector<string> bieuThuc_hauto) {
         cout << bieuThuc_hauto[i] << " ";
         
         Node *n = GetNode(bieuThuc_hauto[i]);
-        if (KiemTraChuoiToanTu(bieuThuc_hauto[i]) == true) {
+        if (KiemTraChuoiToanTu(bieuThuc_hauto[i])) {
             Node *y = nganXep.top();
             nganXep.pop();
             
@@ -206,6 +227,12 @@ Node* ChuyenHauToThanhCay(vector<string> bieuThuc_hauto) {
             nganXep.pop();
             
             n->Left = x;
+            n->Right = y;
+        }
+        else if (KiemTraHam1Ngoi(bieuThuc_hauto[i])) {
+            Node *y = nganXep.top();
+            nganXep.pop();
+            
             n->Right = y;
         }
 
@@ -222,7 +249,7 @@ void TinhGiaTriBieuThuc(Node *Root)    // Left-Right-Node
         TinhGiaTriBieuThuc(Root->Left);
         TinhGiaTriBieuThuc(Root->Right);
         
-        if (KiemTraChuoiToanTu(Root->Data) == true) {
+        if (KiemTraChuoiToanTu(Root->Data)) {
             float x = Root->Left->ketqua;
             float y = Root->Right->ketqua;
             
@@ -245,6 +272,28 @@ void TinhGiaTriBieuThuc(Node *Root)    // Left-Right-Node
                     Root->ketqua = pow(x, y);
                     break;
             }
+        }
+        else if (KiemTraHam1Ngoi(Root->Data)) {
+            float y = Root->Right->ketqua;
+            float ketqua = 0.0;
+            
+            if (Root->Data == "abs") {
+                ketqua = abs(y);
+            }
+            if (Root->Data == "sqrt") {
+                ketqua = sqrt(y);
+            }
+            if (Root->Data == "sin") {
+                ketqua = sin(y);
+            }
+            if (Root->Data == "cos") {
+                ketqua = cos(y);
+            }
+            if (Root->Data == "tan") {
+                ketqua = tan(y);
+            }
+            
+            Root->ketqua = ketqua;
         }
         else {
             Root->ketqua = stof(Root->Data);

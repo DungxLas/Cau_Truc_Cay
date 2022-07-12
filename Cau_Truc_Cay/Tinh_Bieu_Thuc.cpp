@@ -15,17 +15,17 @@ using namespace std;
 
 int main()
 {
-    string bieuThuc = "(2 ^ (3 + 4) - 4) / 5 + 2";
+    string bieuThuc = "5* 2^abs(1+ 2 - 5 ) ";
     vector<string> bieuThuc_hauTo = TrungToThanhHauTo(bieuThuc);
     
     cout << "Bieu thuc da cho: " << bieuThuc << endl;
     
     cout << "Bieu thuc hau to: ";
     Node *Root = ChuyenHauToThanhCay(bieuThuc_hauTo); //Cay bieu thuc
-    
+
     TinhGiaTriBieuThuc(Root);
-    cout << "\n Ket qua bieu thuc: " << Root->ketqua << endl;
-    
+    cout << "\nKet qua bieu thuc: " << Root->ketqua << endl;
+
     system("pause");
     return 0;
 }
