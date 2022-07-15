@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-    string bieuThuc = "5* 2^abs(1+ 2 - 5 ) ";
+    string bieuThuc = "(2*3) ! - 4 ";
     vector<string> bieuThuc_hauTo = TrungToThanhHauTo(bieuThuc);
     
     cout << "Bieu thuc da cho: " << bieuThuc << endl;
