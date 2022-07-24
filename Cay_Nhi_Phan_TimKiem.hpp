@@ -54,6 +54,37 @@ void ThemNode_DeQuy(Node*& Root, int x)
     }
 }
 
+void ThemNode_KhuDeQuy(Node*& Root, int x)
+{
+    if (Root == NULL) {
+        Root = getNode(x);
+    }
+    else
+    {
+        Node* p;
+        Node* q = Root;
+        while (q != NULL) {
+            p = q;
+            if (x > q->Data) {
+                q = q->Right;
+            }
+            else if (x < q->Data) {
+                q = q->Left;
+            }
+            else if (x == q->Data) {
+                return;
+            }
+        }
+        
+        if (x > p->Data) {
+            p->Right = getNode(x);
+        }
+        else if (x < p->Data) {
+            p->Left = getNode(x);
+        }
+    }
+}
+
 void taoCayTuDaySo(Node*& Root, int a[], int n)
 {
     iNit(Root);
