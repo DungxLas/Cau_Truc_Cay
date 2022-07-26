@@ -71,7 +71,7 @@ void ThemNode_KhuDeQuy(Node*& Root, int x)
             else if (x < q->Data) {
                 q = q->Left;
             }
-            else if (x == q->Data) {
+            else {
                 return;
             }
         }
@@ -117,6 +117,95 @@ void postOrder(Node *Root)    // Left-Right-Node
         postOrder(Root->Left);
         postOrder(Root->Right);
         cout << Root->Data << " ";
+    }
+}
+
+bool timNode_DeQuy(Node* Root, int x)
+{
+    if (Root != NULL) {
+        if (x > Root->Data) {
+            timNode_DeQuy(Root->Right, x);
+        }
+        else if (x < Root->Data) {
+            timNode_DeQuy(Root->Left, x);
+        }
+        else {
+            return true;
+        }
+    }
+    return false;
+}
+
+void timNodeVaThemNode_DeQuy(Node*& Root, int x)
+{
+    if (Root != NULL) {
+        if (x > Root->Data) {
+            timNodeVaThemNode_DeQuy(Root->Right, x);
+        }
+        else if (x < Root->Data) {
+            timNodeVaThemNode_DeQuy(Root->Left, x);
+        }
+        else {
+            cout << "Node can tim co trong cay!" << endl;
+            return;
+        }
+    }
+    else
+    {
+        Root = getNode(x);
+        cout << "Node can tim ko co trong cay. Da tu dong them vao cay!" << endl;
+    }
+}
+
+bool timNode_KoDeQuy(Node* Root, int x)
+{
+    if (Root != NULL) {
+        Node* p = Root;
+        while (p != NULL) {
+            if (x > p->Data) {
+                p = p->Right;
+            }
+            else if (x < p->Data) {
+                p = p->Left;
+            }
+            else {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void timNodeVaThemNode_KoDeQuy(Node*& Root, int x)
+{
+    if (Root == NULL) {
+        Root = getNode(x);
+    }
+    else
+    {
+        Node* p;
+        Node* q = Root;
+        while (q != NULL) {
+            p = q;
+            if (x > q->Data) {
+                q = q->Right;
+            }
+            else if (x < q->Data) {
+                q = q->Left;
+            }
+            else if (x == q->Data) {
+                cout << "Node can tim co trong cay!" << endl;
+                return;
+            }
+        }
+        
+        if (x > p->Data) {
+            p->Right = getNode(x);
+        }
+        else if (x < p->Data) {
+            p->Left = getNode(x);
+        }
+        cout << "Node can tim ko co trong cay. Da tu dong them vao cay!" << endl;
     }
 }
 
