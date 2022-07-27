@@ -120,20 +120,40 @@ void postOrder(Node *Root)    // Left-Right-Node
     }
 }
 
-bool timNode_DeQuy(Node* Root, int x)
+Node* timNode_DeQuy1(Node* Root, int x)
 {
     if (Root != NULL) {
         if (x > Root->Data) {
-            timNode_DeQuy(Root->Right, x);
+            return timNode_DeQuy1(Root->Right, x);
         }
         else if (x < Root->Data) {
-            timNode_DeQuy(Root->Left, x);
+            return timNode_DeQuy1(Root->Left, x);
         }
         else {
-            return true;
+            return Root;
         }
     }
-    return false;
+    return NULL;
+}
+
+Node* timNode_DeQuy2(Node* Root, int x)
+{
+    if (Root == NULL) {
+        return NULL;
+    }
+
+    if (Root->Data == x) {
+        return Root;
+    }
+
+    Node* p;
+    if (x > Root->Data) {
+        p = timNode_DeQuy2(Root->Right, x);
+    }
+    else if (x < Root->Data) {
+        p = timNode_DeQuy2(Root->Left, x);
+    }
+    return p;
 }
 
 void timNodeVaThemNode_DeQuy(Node*& Root, int x)
@@ -157,34 +177,31 @@ void timNodeVaThemNode_DeQuy(Node*& Root, int x)
     }
 }
 
-bool timNode_KoDeQuy(Node* Root, int x)
+Node* timNode_KhuDeQuy(Node* Root, int x)
 {
-    if (Root != NULL) {
-        Node* p = Root;
-        while (p != NULL) {
-            if (x > p->Data) {
-                p = p->Right;
-            }
-            else if (x < p->Data) {
-                p = p->Left;
-            }
-            else {
-                return true;
-            }
+    while (Root != NULL) {
+        if (x > Root->Data) {
+            Root = Root->Right;
+        }
+        else if (x < Root->Data) {
+            Root = Root->Left;
+        }
+        else {
+            return Root;
         }
     }
-    return false;
+    return NULL;
 }
 
-void timNodeVaThemNode_KoDeQuy(Node*& Root, int x)
+Node* timNodeVaThemNode_KhuDeQuy(Node*& Root, int x)
 {
+    Node* p;
+    Node* q = Root;
     if (Root == NULL) {
-        Root = getNode(x);
+        return Root = getNode(x);
     }
     else
     {
-        Node* p;
-        Node* q = Root;
         while (q != NULL) {
             p = q;
             if (x > q->Data) {
@@ -195,18 +212,21 @@ void timNodeVaThemNode_KoDeQuy(Node*& Root, int x)
             }
             else if (x == q->Data) {
                 cout << "Node can tim co trong cay!" << endl;
-                return;
+                return q;
             }
         }
-        
-        if (x > p->Data) {
-            p->Right = getNode(x);
-        }
-        else if (x < p->Data) {
-            p->Left = getNode(x);
-        }
-        cout << "Node can tim ko co trong cay. Da tu dong them vao cay!" << endl;
     }
+    
+    cout << "Node can tim ko co trong cay. Da tu dong them vao cay!" << endl;
+    if (x > p->Data) {
+        p->Right = getNode(x);
+        p = p->Right;
+    }
+    else if (x < p->Data) {
+        p->Left = getNode(x);
+        p = p->Left;
+    }
+    return p;
 }
 
 #endif /* Cay_Nhi_Phan_TimKiem_hpp */

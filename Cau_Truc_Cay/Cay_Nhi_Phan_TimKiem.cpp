@@ -17,9 +17,15 @@ int main() {
     
     Node* Root;
     taoCayTuDaySo(Root, a, n);
-//    preOrder(Root);
-//    inOrder(Root);
-//    postOrder(Root);
+
+    int x = 20;
+    Node* p = timNode_DeQuy2(Root, x);
+    if (p == NULL) {
+        cout << "\nKhong tim thay gia tri la: " << x << endl;
+    }
+    else {
+        cout << "\nTim thay gia tri la: " << x << endl;
+    }
     
     system("pause");
     return 0;
