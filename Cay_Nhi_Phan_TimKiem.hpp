@@ -229,4 +229,34 @@ Node* timNodeVaThemNode_KhuDeQuy(Node*& Root, int x)
     return p;
 }
 
+void timVaXoaNode_KhuDeQuy(Node*& Root, int x)
+{
+    Node* p;
+    Node* q = Root;
+    
+    while (q != NULL) {
+        p = q;
+        if (x > q->Data) {
+            q = q->Right;
+        }
+        else if (x < q->Data) {
+            q = q->Left;
+        }
+        else if (x == q->Data) {
+            break;
+        }
+    }
+    
+    if (q == NULL) {
+        return;
+    }
+    else {
+        if (q == Root) {
+            if (q->Left == NULL && q->Right == NULL) {
+                Root = NULL;
+            }
+        }
+    }
+}
+
 #endif /* Cay_Nhi_Phan_TimKiem_hpp */

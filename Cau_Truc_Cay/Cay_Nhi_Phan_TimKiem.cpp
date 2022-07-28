@@ -12,13 +12,17 @@
 using namespace std;
 
 int main() {
-    int a[] = {40, 5, 35, 45, 15, 56, 48, 13, 16, 49, 47};
+    //int a[] = {40, 5, 35, 45, 15, 56, 48, 13, 16, 49, 47};
+    int a[] = {50};
     int n = sizeof(a)/sizeof(a[0]);
     
     Node* Root;
     taoCayTuDaySo(Root, a, n);
 
-    int x = 20;
+    int x = 50;
+    
+    timVaXoaNode_KhuDeQuy(Root, x);
+    
     Node* p = timNode_DeQuy2(Root, x);
     if (p == NULL) {
         cout << "\nKhong tim thay gia tri la: " << x << endl;
