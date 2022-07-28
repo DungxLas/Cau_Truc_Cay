@@ -197,7 +197,7 @@ Node* timNodeVaThemNode_KhuDeQuy(Node*& Root, int x)
 {
     Node* p;
     Node* q = Root;
-    if (Root == NULL) {
+    if (q == NULL) {
         return Root = getNode(x);
     }
     else
