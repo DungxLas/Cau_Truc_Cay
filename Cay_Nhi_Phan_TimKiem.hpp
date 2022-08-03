@@ -37,7 +37,7 @@ Node* getNode(int x)
     return p;
 }
 
-/* 4/ */
+/* 4/ Them Node */
 void ThemNode_DeQuy(Node*& Root, int x)
 {
     if (Root != NULL) {
@@ -229,33 +229,45 @@ Node* timNodeVaThemNode_KhuDeQuy(Node*& Root, int x)
     return p;
 }
 
-void timVaXoaNode_KhuDeQuy(Node*& Root, int x)
+/* 5/ Xoa Node */
+void timPhanTuTheMang(Node*& Root, Node*& p)
 {
-    Node* p;
-    Node* q = Root;
-    
-    while (q != NULL) {
-        p = q;
-        if (x > q->Data) {
-            q = q->Right;
-        }
-        else if (x < q->Data) {
-            q = q->Left;
-        }
-        else if (x == q->Data) {
-            break;
-        }
-    }
-    
-    if (q == NULL) {
-        return;
+    if (Root->Right != NULL) {
+        timPhanTuTheMang(Root->Right, p);
     }
     else {
-        if (q == Root) {
-            if (q->Left == NULL && q->Right == NULL) {
-                Root = NULL;
-            }
+        p->Data = Root->Data;
+        p = Root;
+        Root = Root->Left;
+    }
+}
+
+void timVaXoaNode_DeQuy(Node*& Root, int x)
+{
+    if (Root == NULL) {
+        return;
+    }
+    
+    if (Root->Data < x) {
+        timVaXoaNode_DeQuy(Root->Right, x);
+    }
+    else if (Root->Data > x) {
+        timVaXoaNode_DeQuy(Root->Left, x);
+    }
+    else {
+        Node *p = Root;
+        
+        if (p->Left == NULL) {
+            Root = p->Right;
         }
+        else if (p->Right == NULL) {
+            Root = p->Left;
+        }
+        else {
+            timPhanTuTheMang(Root->Left, p);
+        }
+        
+        delete p;
     }
 }
 
