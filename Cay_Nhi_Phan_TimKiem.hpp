@@ -9,6 +9,8 @@
 #define Cay_Nhi_Phan_TimKiem_hpp
 
 #include <iostream>
+#include <string>
+#include<fstream>
 
 using namespace std;
 
@@ -87,10 +89,13 @@ void ThemNode_KhuDeQuy(Node*& Root, int x)
 
 void taoCayTuDaySo(Node*& Root, int a[], int n)
 {
-    iNit(Root);
     for (int i = 0; i < n; ++i) {
         ThemNode_DeQuy(Root, a[i]);
     }
+}
+void taoCayTuTapTin(Node*& Root, fstream &fileIn)
+{
+    
 }
 
 void preOrder(Node *Root)    // Node-Left-Right
