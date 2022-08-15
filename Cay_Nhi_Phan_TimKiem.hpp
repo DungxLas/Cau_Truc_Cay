@@ -276,4 +276,51 @@ void timVaXoaNode_DeQuy(Node*& Root, int x)
     }
 }
 
+/* 6/ Thao tac */
+Node* timMinTrongCay_DeQuy(Node* Root)
+{
+    if (Root != NULL) {
+        if (Root->Left != NULL) {
+            return timMinTrongCay_DeQuy(Root->Left);
+        }
+        return Root;
+    }
+    return NULL;
+}
+
+Node* timMinTrongCay_KoDeQuy(Node* Root)
+{
+    while (Root != NULL) {
+        if (Root->Left != NULL) {
+            Root = Root->Left;
+            continue;
+        }
+        break;
+    }
+    return Root;
+}
+
+Node* timMaxTrongCay_DeQuy(Node* Root)
+{
+    if (Root != NULL) {
+        if (Root->Right != NULL) {
+            return timMaxTrongCay_DeQuy(Root->Right);
+        }
+        return Root;
+    }
+    return NULL;
+}
+
+Node* timMaxTrongCay_KoDeQuy(Node* Root)
+{
+    while (Root != NULL) {
+        if (Root->Right != NULL) {
+            Root = Root->Right;
+            continue;
+        }
+        break;
+    }
+    return Root;
+}
+
 #endif /* Cay_Nhi_Phan_TimKiem_hpp */
