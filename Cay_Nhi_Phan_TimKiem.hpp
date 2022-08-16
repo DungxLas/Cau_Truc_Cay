@@ -10,7 +10,8 @@
 
 #include <iostream>
 #include <string>
-#include<fstream>
+#include <fstream>
+#include <queue>
 
 using namespace std;
 
@@ -277,6 +278,38 @@ void timVaXoaNode_DeQuy(Node*& Root, int x)
 }
 
 /* 6/ Thao tac */
+int DemSoNode_DeQuyThuong(Node *Root)
+{
+    // Dieu kien dung
+    if (Root == NULL) {
+        return 0;
+    }
+    // Buoc de quy
+    return 1 + DemSoNode_DeQuyThuong(Root->Left) + DemSoNode_DeQuyThuong(Root->Right);
+}
+
+int DemSoNode_KhuDeQuy(Node *Root)
+{
+    queue<Node *> q;
+    q.push(Root);
+    
+    int dem = 0;
+    while (!q.empty()) {
+        Node *p = q.front();
+        dem++;
+        q.pop();
+        
+        if (p->Left != NULL) {
+            q.push(p->Left);
+        }
+        if (p->Right != NULL) {
+            q.push(p->Right);
+        }
+    }
+    
+    return dem;
+}
+
 Node* timMinTrongCay_DeQuy(Node* Root)
 {
     if (Root != NULL) {
@@ -321,6 +354,53 @@ Node* timMaxTrongCay_KoDeQuy(Node* Root)
         break;
     }
     return Root;
+}
+
+int demNodeAmTrongCay_DeQuy(Node* Root)
+{
+    if (Root == NULL) {
+        return 0;
+    }
+    else {
+        if (Root->Data >= 0) {
+            return demNodeAmTrongCay_DeQuy(Root->Left);
+        }
+        else {
+            if (Root->Data == -1) {
+                return 1 + DemSoNode_DeQuyThuong(Root->Left);
+            }
+            else {
+                return 1 + DemSoNode_DeQuyThuong(Root->Left) + demNodeAmTrongCay_DeQuy(Root->Right);
+            }
+        }
+    }
+}
+
+int demNodeAmTrongCay_KoDeQuy(Node* Root)
+{
+    int dem = 0;
+    
+xetCayPhai:
+    if (Root == NULL) {
+        return dem;
+    }
+    else {
+        if (Root->Data >= 0) {
+            Root = Root->Left;
+            goto xetCayPhai;
+        }
+        
+        ++dem;
+        if (Root->Left != NULL) {
+            dem += DemSoNode_KhuDeQuy(Root->Left);
+        }
+        if (Root->Data != 1) {
+            Root = Root->Right;
+            goto xetCayPhai;
+        }
+        
+        return dem;
+    }
 }
 
 #endif /* Cay_Nhi_Phan_TimKiem_hpp */

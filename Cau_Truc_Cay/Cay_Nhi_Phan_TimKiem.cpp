@@ -44,6 +44,11 @@ int main() {
 //    cout << "\n" << x->Data;
 //    x = timMaxTrongCay_KoDeQuy(Root);
 //    cout << "\n" << x->Data;
+    
+    int x = demNodeAmTrongCay_DeQuy(Root);
+    cout << "\nSo Node am trong cay: " << x;
+    int y = demNodeAmTrongCay_KoDeQuy(Root);
+    cout << "\nSo Node am trong cay: " << y;
 
     system("pause");
     return 0;
