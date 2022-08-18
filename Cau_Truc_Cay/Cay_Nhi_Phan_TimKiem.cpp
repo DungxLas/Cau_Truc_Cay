@@ -49,6 +49,9 @@ int main() {
     cout << "\nSo Node am trong cay: " << x;
     int y = demNodeAmTrongCay_KoDeQuy(Root);
     cout << "\nSo Node am trong cay: " << y;
+    int z = 0;
+    demNodeAmTrongCay_DeQuy_CaiTien(Root, z);
+    cout << "\nSo Node am trong cay: " << z;
 
     system("pause");
     return 0;

@@ -376,6 +376,20 @@ int demNodeAmTrongCay_DeQuy(Node* Root)
     }
 }
 
+void demNodeAmTrongCay_DeQuy_CaiTien(Node *Root, int &count)
+{
+    if (Root != NULL) {
+        demNodeAmTrongCay_DeQuy_CaiTien(Root->Left, count);
+        if (Root->Data < 0) {
+            ++count;
+        }
+        else {
+            return;
+        }
+        demNodeAmTrongCay_DeQuy_CaiTien(Root->Right, count);
+    }
+}
+
 int demNodeAmTrongCay_KoDeQuy(Node* Root)
 {
     int dem = 0;
