@@ -417,4 +417,28 @@ xetCayPhai:
     }
 }
 
+int j = 0;
+bool xCheck = false;
+bool yCheck = false;
+void demNodeTrongKhoangXY_DeQuy(Node *Root, int x, int y, int a[])
+{
+    if (Root != NULL) {
+        demNodeTrongKhoangXY_DeQuy(Root->Left, x, y, a);
+        if (Root->Data >= x && xCheck == false) {
+            xCheck = true;
+            a[j] = x;
+            ++j;
+        }
+        if (Root->Data >= y && yCheck == false) {
+            yCheck = true;
+            a[j] = y;
+            ++j;
+        }
+        a[j] = Root->Data;
+        
+        ++j;
+        demNodeTrongKhoangXY_DeQuy(Root->Right, x, y, a);
+    }
+}
+
 #endif /* Cay_Nhi_Phan_TimKiem_hpp */

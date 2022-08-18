@@ -35,6 +35,8 @@ int main() {
     taoCayTuDaySo(Root, a, n);
     inOrder(Root);
     
+    cout << "\n";
+    
 //    Node* x;
 //    x = timMinTrongCay_DeQuy(Root);
 //    cout << "\n" << x->Data;
@@ -45,13 +47,23 @@ int main() {
 //    x = timMaxTrongCay_KoDeQuy(Root);
 //    cout << "\n" << x->Data;
     
-    int x = demNodeAmTrongCay_DeQuy(Root);
-    cout << "\nSo Node am trong cay: " << x;
-    int y = demNodeAmTrongCay_KoDeQuy(Root);
-    cout << "\nSo Node am trong cay: " << y;
-    int z = 0;
-    demNodeAmTrongCay_DeQuy_CaiTien(Root, z);
-    cout << "\nSo Node am trong cay: " << z;
+//    int x = demNodeAmTrongCay_DeQuy(Root);
+//    cout << "\nSo Node am trong cay: " << x;
+//    int y = demNodeAmTrongCay_KoDeQuy(Root);
+//    cout << "\nSo Node am trong cay: " << y;
+//    int z = 0;
+//    demNodeAmTrongCay_DeQuy_CaiTien(Root, z);
+//    cout << "\nSo Node am trong cay: " << z;
+    
+    int x = -50;
+    int y = 50;
+    int m = DemSoNode_DeQuyThuong(Root);
+    int b[m];
+    demNodeTrongKhoangXY_DeQuy(Root, x, y, b);
+    for (int i = 0; i < m + 2; ++i) {
+        cout << b[i] << " ";
+    }
+    cout << "\n";
 
     system("pause");
     return 0;
