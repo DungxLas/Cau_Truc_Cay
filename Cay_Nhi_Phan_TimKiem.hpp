@@ -19,7 +19,8 @@ using namespace std;
 struct Node
 {
     int Data;
-    Node *Left, *Right;
+    Node *Cha, *Left, *Right;
+    int ThuTuDuyet;
 };
 
 /* 2/ Khoi tao cay */
@@ -36,24 +37,26 @@ Node* getNode(int x)
         return NULL;
     }
     p->Data = x;
-    p->Left = p->Right = NULL;
+    p->Left = p->Right = p->Cha = NULL;
+    p->ThuTuDuyet = 0;
     return p;
 }
 
 /* 4/ Them Node */
-void ThemNode_DeQuy(Node*& Root, int x)
+void ThemNode_DeQuy(Node*& Root, int x, Node* k)
 {
     if (Root != NULL) {
         if (x > Root->Data) {
-            ThemNode_DeQuy(Root->Right, x);
+            ThemNode_DeQuy(Root->Right, x, Root);
         }
         else if (x < Root->Data) {
-            ThemNode_DeQuy(Root->Left, x);
+            ThemNode_DeQuy(Root->Left, x, Root);
         }
     }
     else
     {
         Root = getNode(x);
+        Root->Cha = k;
     }
 }
 
@@ -81,9 +84,11 @@ void ThemNode_KhuDeQuy(Node*& Root, int x)
         
         if (x > p->Data) {
             p->Right = getNode(x);
+            p->Right->Cha = p;
         }
         else if (x < p->Data) {
             p->Left = getNode(x);
+            p->Left->Cha = p;
         }
     }
 }
@@ -91,7 +96,8 @@ void ThemNode_KhuDeQuy(Node*& Root, int x)
 void taoCayTuDaySo(Node*& Root, int a[], int n)
 {
     for (int i = 0; i < n; ++i) {
-        ThemNode_DeQuy(Root, a[i]);
+        //ThemNode_DeQuy(Root, a[i], NULL);
+        ThemNode_KhuDeQuy(Root, a[i]);
     }
 }
 void taoCayTuTapTin(Node*& Root, fstream &fileIn)
@@ -417,28 +423,127 @@ xetCayPhai:
     }
 }
 
-int j = 0;
-bool xCheck = false;
-bool yCheck = false;
-void demNodeTrongKhoangXY_DeQuy(Node *Root, int x, int y, int a[])
+//Dem so Node trong khoang [x, y] //
+void buoc1_TaoMangChuaCacNodeVaXY_KhuDeQuy(Node *Root, vector<int> &a, int x, int y)
 {
-    if (Root != NULL) {
-        demNodeTrongKhoangXY_DeQuy(Root->Left, x, y, a);
-        if (Root->Data >= x && xCheck == false) {
-            xCheck = true;
-            a[j] = x;
-            ++j;
-        }
-        if (Root->Data >= y && yCheck == false) {
-            yCheck = true;
-            a[j] = y;
-            ++j;
-        }
-        a[j] = Root->Data;
+    char *s = "LNR";
+    bool xCheck = false;
+    bool yCheck = false;
+    
+    if(Root != NULL)
+    {
+        Node *cha = Root->Cha;
+        Root->Cha = NULL; // quy ước Root chính là gốc của cây đang xét (nó có thể là cây nhỏ cho nên phải cho điều kiện dừng là Root->Cha = NULL)
         
-        ++j;
-        demNodeTrongKhoangXY_DeQuy(Root->Right, x, y, a);
+        while(true)
+        {
+
+            if(Root->ThuTuDuyet <= 2)
+            {
+                if(s[Root->ThuTuDuyet] == 'N' || s[Root->ThuTuDuyet] == 'n')
+                {
+                    if(Root->Data > x && xCheck == false)
+                    {
+                        a.push_back(x);
+                        xCheck = true;
+                    }
+
+                    if(Root->Data > y && yCheck == false)
+                    {
+                        a.push_back(y);
+                        yCheck = true;
+                    }
+
+                    a.push_back(Root->Data);
+                    Root->ThuTuDuyet++;
+                }
+                else if(s[Root->ThuTuDuyet] == 'L' || s[Root->ThuTuDuyet] == 'l')
+                {
+                    Root->ThuTuDuyet++;
+
+                    if(Root->Left != NULL)
+                        Root = Root->Left;
+                }
+                else if(s[Root->ThuTuDuyet] == 'R' || s[Root->ThuTuDuyet] == 'r')
+                {
+                    Root->ThuTuDuyet++;
+
+                    if(Root->Right != NULL)
+                        Root = Root->Right;
+                }
+            }
+            else // khi đi vào đây tức là 1 node đã đi hết thang thứ tự duyệt rồi, lúc này không đi tới được nữa mà phải lùi về cha của nó để xét theo hướng khác
+            {
+                Root->ThuTuDuyet = 0; // trước khi trở về cha thì sẽ reset lại thứ tự duyệt của node đó về 0 để có thể sau hàm này còn nhu cầu duyệt tiếp kiểu khác nữa
+
+                if(Root->Cha == NULL)
+                {
+                    Root->Cha = cha; // trả lại cha ban đầu của Root;
+
+                    if(xCheck == false)
+                        a.push_back(x);
+
+                    if(yCheck == false)
+                        a.push_back(y);
+
+                    break; // ĐIỀU KIỆN DỪNG => TỪ GỐC TRỎ VỀ CHA SẼ LÀ NULL => DỪNG LẠI
+                }
+                else
+                    Root = Root->Cha;
+            }
+        }
     }
+}
+
+int buoc2_TimKiemNhiPhanXY_KhuDeQuy(vector<int> a, int phantutimkiem)
+{
+    int left = 0;
+    int right = a.size() - 1;
+    
+    while (left <= right) {
+        int mid = (left + right) / 2;
+        
+        if (phantutimkiem > a[mid]) {
+            left = mid + 1;
+        }
+        else if (phantutimkiem < a[mid]) {
+            right = mid - 1;
+        }
+        else {
+            return mid;
+        }
+    }
+    return -1;
+}
+
+int DemCacNodeCuaCayNamTrongDoanXY_KhuDeQuy(Node *Root, int x, int y)
+{
+    vector<int> arr;
+    buoc1_TaoMangChuaCacNodeVaXY_KhuDeQuy(Root, arr, x, y);
+
+    int index_X = buoc2_TimKiemNhiPhanXY_KhuDeQuy(arr, x);
+    int index_Y = buoc2_TimKiemNhiPhanXY_KhuDeQuy(arr, y);
+
+    // Để đề phòng trường hợp là cây có những Node có giá trị trùng với x, y nên phải lấy x đầu tiên và y cuối cùng để đảm bảo
+    if(index_X - 1 >= 0 && index_X - 1 < arr.size()) // Xét điều kiện ràng buộc rồi mới xử lý để tránh truy xuất đến 1 vị trí index không hợp lệ của mảng
+    {
+        if(arr[index_X - 1] == x)
+            index_X--;
+    }
+    
+    if(index_Y + 1 >= 0 && index_Y + 1 < arr.size()) // Xét điều kiện ràng buộc rồi mới xử lý để tránh truy xuất đến 1 vị trí index không hợp lệ của mảng
+    {
+        if(arr[index_Y + 1] == y)
+            index_Y++;
+    }
+
+    printf("\nDanh sach cac Node thoa dieu kien nam trong doan [%d, %d] la: ", x, y);
+    // Không bắt đầu chạy từ index_x được vì chính index_x là giá trị x mình chủ động thêm vào
+    // Không chạy đến index_Y được vì chính index_Y là giá trị y mình chủ động thêm vào => chạy đến index_Y - 1
+    for(int i = index_X + 1; i < index_Y; ++i)
+        printf("%d ", arr[i]);
+
+    return index_Y - index_X + 1 - 2;
 }
 
 #endif /* Cay_Nhi_Phan_TimKiem_hpp */

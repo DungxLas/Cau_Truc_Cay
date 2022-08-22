@@ -10,6 +10,7 @@
 #include <ctime>
 #include <string>
 #include <fstream>
+#include <vector>
 
 #include "Cay_Nhi_Phan_TimKiem.hpp"
 
@@ -57,14 +58,31 @@ int main() {
     
     int x = -50;
     int y = 50;
-    int m = DemSoNode_DeQuyThuong(Root);
-    int b[m];
-    demNodeTrongKhoangXY_DeQuy(Root, x, y, b);
-    for (int i = 0; i < m + 2; ++i) {
+    vector<int> b;
+    buoc1_TaoMangChuaCacNodeVaXY_KhuDeQuy(Root, b, x, y);
+    for (int i = 0; i < b.size(); ++i) {
         cout << b[i] << " ";
     }
     cout << "\n";
+    
+    int index_X = buoc2_TimKiemNhiPhanXY_KhuDeQuy(b, x);
+    int index_Y = buoc2_TimKiemNhiPhanXY_KhuDeQuy(b, y);
 
+    // Phong truong hop cay co san X va Y
+    if (index_X - 1 >= 0 && index_X - 1 < b.size()) {
+        if (b[index_X - 1] == x) {
+            index_X--;
+        }
+    }
+    if (index_Y + 1 >= 0 && index_X + 1 < b.size()) {
+        if (b[index_Y + 1] == y) {
+            index_Y++;
+        }
+    }
+    
+    int soLuongNodeTrongDoanXY = index_Y - index_X + 1 - 2;
+    cout << "\nSo luong Node trong doan x = " << x << ", y = " << y << " la: " << soLuongNodeTrongDoanXY << endl;
+    
     system("pause");
     return 0;
 }
