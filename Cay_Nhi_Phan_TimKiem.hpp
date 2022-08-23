@@ -546,4 +546,138 @@ int DemCacNodeCuaCayNamTrongDoanXY_KhuDeQuy(Node *Root, int x, int y)
     return index_Y - index_X + 1 - 2;
 }
 
+//Tinh tong cac Node trong khoang [x, y] //
+int tongCacNodeCuaCayNamTrongDoanXY_KhuDeQuy(Node *Root, int x, int y)
+{
+    vector<int> arr;
+    buoc1_TaoMangChuaCacNodeVaXY_KhuDeQuy(Root, arr, x, y);
+
+    int index_X = buoc2_TimKiemNhiPhanXY_KhuDeQuy(arr, x);
+    int index_Y = buoc2_TimKiemNhiPhanXY_KhuDeQuy(arr, y);
+
+    // Để đề phòng trường hợp là cây có những Node có giá trị trùng với x, y nên phải lấy x đầu tiên và y cuối cùng để đảm bảo
+    if(index_X - 1 >= 0 && index_X - 1 < arr.size()) // Xét điều kiện ràng buộc rồi mới xử lý để tránh truy xuất đến 1 vị trí index không hợp lệ của mảng
+    {
+        if(arr[index_X - 1] == x)
+            index_X--;
+    }
+    
+    if(index_Y + 1 >= 0 && index_Y + 1 < arr.size()) // Xét điều kiện ràng buộc rồi mới xử lý để tránh truy xuất đến 1 vị trí index không hợp lệ của mảng
+    {
+        if(arr[index_Y + 1] == y)
+            index_Y++;
+    }
+
+    printf("\nDanh sach cac Node thoa dieu kien nam trong doan [%d, %d] la: ", x, y);
+    // Không bắt đầu chạy từ index_x được vì chính index_x là giá trị x mình chủ động thêm vào
+    // Không chạy đến index_Y được vì chính index_Y là giá trị y mình chủ động thêm vào => chạy đến index_Y - 1
+    int tong = 0;
+    for(int i = index_X + 1; i <= index_Y--; ++i)
+        tong += arr[i];
+
+    return tong;
+}
+
+void kiemTraCayNhiPhanTimKiem_DeQuy(Node *Root, int &temp, bool &KiemTra)
+{
+    if (Root != NULL && KiemTra == true) {
+        kiemTraCayNhiPhanTimKiem_DeQuy(Root->Left, temp, KiemTra);
+        
+        if (Root->Data > temp) {
+            temp = Root->Data;
+        }
+        else {
+            KiemTra = false;
+            return;
+        }
+        
+        kiemTraCayNhiPhanTimKiem_DeQuy(Root->Right, temp, KiemTra);
+    }
+}
+
+bool kiemTraCayNhiPhanTimKiem_KhuDeQuy(Node *Root)
+{
+    char *s = "LNR";
+    int temp = INT_MIN;
+    
+    if(Root != NULL)
+    {
+        Node *cha = Root->Cha;
+        Root->Cha = NULL; // quy ước Root chính là gốc của cây đang xét (nó có thể là cây nhỏ cho nên phải cho điều kiện dừng là Root->Cha = NULL)
+        
+        while(true)
+        {
+
+            if(Root->ThuTuDuyet <= 2)
+            {
+                if(s[Root->ThuTuDuyet] == 'N' || s[Root->ThuTuDuyet] == 'n')
+                {
+                    if(Root->Data > temp)
+                    {
+                        temp = Root->Data;
+                    }
+                    else
+                    {
+                        Root->ThuTuDuyet = 0; // trước khi trở về cha thì sẽ reset lại thứ tự duyệt của node đó về 0 để có thể sau hàm này còn nhu cầu duyệt tiếp kiểu khác nữa
+
+                        while (Root->Cha != NULL) {
+                            Root = Root->Cha;
+                            Root->ThuTuDuyet = 0;
+                        }
+                        
+                        Root->Cha = cha;
+                        return false;
+                    }
+                    
+                    Root->ThuTuDuyet++;
+                }
+                else if(s[Root->ThuTuDuyet] == 'L' || s[Root->ThuTuDuyet] == 'l')
+                {
+                    Root->ThuTuDuyet++;
+
+                    if(Root->Left != NULL)
+                        Root = Root->Left;
+                }
+                else if(s[Root->ThuTuDuyet] == 'R' || s[Root->ThuTuDuyet] == 'r')
+                {
+                    Root->ThuTuDuyet++;
+
+                    if(Root->Right != NULL)
+                        Root = Root->Right;
+                }
+            }
+            else // khi đi vào đây tức là 1 node đã đi hết thang thứ tự duyệt rồi, lúc này không đi tới được nữa mà phải lùi về cha của nó để xét theo hướng khác
+            {
+                Root->ThuTuDuyet = 0; // trước khi trở về cha thì sẽ reset lại thứ tự duyệt của node đó về 0 để có thể sau hàm này còn nhu cầu duyệt tiếp kiểu khác nữa
+
+                if(Root->Cha == NULL)
+                {
+                    Root->Cha = cha; // trả lại cha ban đầu của Root;
+                    break; // ĐIỀU KIỆN DỪNG => TỪ GỐC TRỎ VỀ CHA SẼ LÀ NULL => DỪNG LẠI
+                }
+                else
+                    Root = Root->Cha;
+            }
+        }
+    }
+    
+    return true;
+}
+
+void kiemTraCayNhiPhanTimKiem(Node *Root)
+{
+    int temp = INT_MIN;
+    bool kiemtra = true;
+    
+    //kiemTraCayNhiPhanTimKiem_DeQuy(Root, temp, kiemtra);
+    kiemtra = kiemTraCayNhiPhanTimKiem_KhuDeQuy(Root);
+    
+    if (kiemtra == true) {
+        cout << "\nDay la cay nhi phan tim kiem";
+    }
+    else {
+        cout << "\nDay khong phai la cay nhi phan tim kiem";
+    }
+}
+
 #endif /* Cay_Nhi_Phan_TimKiem_hpp */
