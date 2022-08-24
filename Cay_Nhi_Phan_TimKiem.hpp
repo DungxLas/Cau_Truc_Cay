@@ -21,6 +21,7 @@ struct Node
     int Data;
     Node *Cha, *Left, *Right;
     int ThuTuDuyet;
+    int soLanXuatHien;
 };
 
 /* 2/ Khoi tao cay */
@@ -39,25 +40,37 @@ Node* getNode(int x)
     p->Data = x;
     p->Left = p->Right = p->Cha = NULL;
     p->ThuTuDuyet = 0;
+    p->soLanXuatHien = 1;
     return p;
 }
 
 /* 4/ Them Node */
-void ThemNode_DeQuy(Node*& Root, int x, Node* k)
+int ThemNode_DeQuy(Node*& Root, int x, Node* k)
 {
     if (Root != NULL) {
         if (x > Root->Data) {
-            ThemNode_DeQuy(Root->Right, x, Root);
+            return ThemNode_DeQuy(Root->Right, x, Root);
         }
         else if (x < Root->Data) {
-            ThemNode_DeQuy(Root->Left, x, Root);
+            return ThemNode_DeQuy(Root->Left, x, Root);
+        }
+        else {
+            Root->soLanXuatHien++;
+            return 0;
         }
     }
     else
     {
-        Root = getNode(x);
+        Node *conMoi = getNode(x);
+        
+        if (conMoi == NULL) {
+            return -1;
+        }
+        
+        Root = conMoi;
         Root->Cha = k;
     }
+    return 1;
 }
 
 void ThemNode_KhuDeQuy(Node*& Root, int x)
@@ -96,8 +109,8 @@ void ThemNode_KhuDeQuy(Node*& Root, int x)
 void taoCayTuDaySo(Node*& Root, int a[], int n)
 {
     for (int i = 0; i < n; ++i) {
-        //ThemNode_DeQuy(Root, a[i], NULL);
-        ThemNode_KhuDeQuy(Root, a[i]);
+        ThemNode_DeQuy(Root, a[i], NULL);
+        //ThemNode_KhuDeQuy(Root, a[i]);
     }
 }
 void taoCayTuTapTin(Node*& Root, fstream &fileIn)
@@ -680,4 +693,14 @@ void kiemTraCayNhiPhanTimKiem(Node *Root)
     }
 }
 
+void demSoLuongGiaTriPhanBietVaTanSuatXuatHien_DeQuy(Node *Root, int &count)
+{
+    if (Root != NULL) {
+        cout << "\nGia tri " << Root->Data << " xuat hien " << Root->soLanXuatHien << " lan";
+        count++;
+        
+        demSoLuongGiaTriPhanBietVaTanSuatXuatHien_DeQuy(Root->Left, count);
+        demSoLuongGiaTriPhanBietVaTanSuatXuatHien_DeQuy(Root->Right, count);
+    }
+}
 #endif /* Cay_Nhi_Phan_TimKiem_hpp */
