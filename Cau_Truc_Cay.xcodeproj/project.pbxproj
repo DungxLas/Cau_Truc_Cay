@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		744269AD288860CB00373FD6 /* Cay_Nhi_Phan_TimKiem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 744269AB288860CB00373FD6 /* Cay_Nhi_Phan_TimKiem.cpp */; };
+		74AD211328B716270009688D /* Quan_Ly_Tu_Dien_Anh_Viet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74AD211128B716270009688D /* Quan_Ly_Tu_Dien_Anh_Viet.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +32,9 @@
 		748432DB284CDE7A008F745E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		74A107DC286D8FCB006ADCEA /* Tinh_Bieu_Thuc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tinh_Bieu_Thuc.cpp; sourceTree = "<group>"; };
 		74A107DD286D8FCB006ADCEA /* Tinh_Bieu_Thuc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tinh_Bieu_Thuc.hpp; sourceTree = "<group>"; };
+		74AD211128B716270009688D /* Quan_Ly_Tu_Dien_Anh_Viet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Quan_Ly_Tu_Dien_Anh_Viet.cpp; sourceTree = "<group>"; };
+		74AD211228B716270009688D /* Quan_Ly_Tu_Dien_Anh_Viet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Quan_Ly_Tu_Dien_Anh_Viet.hpp; path = Cau_Truc_Cay/Quan_Ly_Tu_Dien_Anh_Viet.hpp; sourceTree = "<group>"; };
+		74AD211428B724400009688D /* convertString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = convertString.h; sourceTree = "<group>"; };
 		74DD72892877D89900132A1E /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,6 +52,8 @@
 		748432CF284CDE7A008F745E = {
 			isa = PBXGroup;
 			children = (
+				74AD211228B716270009688D /* Quan_Ly_Tu_Dien_Anh_Viet.hpp */,
+				74AD211428B724400009688D /* convertString.h */,
 				744269AC288860CB00373FD6 /* Cay_Nhi_Phan_TimKiem.hpp */,
 				7403940A2869F545000F2C1A /* Doc_Gia.h */,
 				74517F16284E3E3E000BF74B /* Cay_Nhi_Phan_Linked.h */,
@@ -74,6 +79,7 @@
 				74A107DC286D8FCB006ADCEA /* Tinh_Bieu_Thuc.cpp */,
 				74DD72892877D89900132A1E /* test.cpp */,
 				744269AB288860CB00373FD6 /* Cay_Nhi_Phan_TimKiem.cpp */,
+				74AD211128B716270009688D /* Quan_Ly_Tu_Dien_Anh_Viet.cpp */,
 			);
 			path = Cau_Truc_Cay;
 			sourceTree = "<group>";
@@ -135,7 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				744269AD288860CB00373FD6 /* Cay_Nhi_Phan_TimKiem.cpp in Sources */,
+				74AD211328B716270009688D /* Quan_Ly_Tu_Dien_Anh_Viet.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
