@@ -240,93 +240,115 @@ void inOrder(NODE *Root)    // Left-Node-Right
     }
 }
 
-//void postOrder(Node *Root)    // Left-Right-Node
-//{
-//    if (Root != NULL) {
-//        postOrder(Root->Left);
-//        postOrder(Root->Right);
-//        cout << Root->Data << " ";
-//    }
-//}
-//
-//
-//
-//Node* timNodeVaThemNode_KhuDeQuy(Node*& Root, int x)
-//{
-//    Node* p;
-//    Node* q = Root;
-//    if (q == NULL) {
-//        return Root = getNode(x);
-//    }
-//    else
-//    {
-//        while (q != NULL) {
-//            p = q;
-//            if (x > q->Data) {
-//                q = q->Right;
-//            }
-//            else if (x < q->Data) {
-//                q = q->Left;
-//            }
-//            else if (x == q->Data) {
-//                cout << "Node can tim co trong cay!" << endl;
-//                return q;
-//            }
-//        }
-//    }
-//    
-//    cout << "Node can tim ko co trong cay. Da tu dong them vao cay!" << endl;
-//    if (x > p->Data) {
-//        p->Right = getNode(x);
-//        p = p->Right;
-//    }
-//    else if (x < p->Data) {
-//        p->Left = getNode(x);
-//        p = p->Left;
-//    }
-//    return p;
-//}
-//
-///* 5/ Xoa Node */
-//void timPhanTuTheMang(Node*& Root, Node*& p)
-//{
-//    if (Root->Right != NULL) {
-//        timPhanTuTheMang(Root->Right, p);
-//    }
-//    else {
-//        p->Data = Root->Data;
-//        p = Root;
-//        Root = Root->Left;
-//    }
-//}
-//
-//void timVaXoaNode_DeQuy(Node*& Root, int x)
-//{
-//    if (Root == NULL) {
-//        return;
-//    }
-//    
-//    if (Root->Data < x) {
-//        timVaXoaNode_DeQuy(Root->Right, x);
-//    }
-//    else if (Root->Data > x) {
-//        timVaXoaNode_DeQuy(Root->Left, x);
-//    }
-//    else {
-//        Node *p = Root;
-//        
-//        if (p->Left == NULL) {
-//            Root = p->Right;
-//        }
-//        else if (p->Right == NULL) {
-//            Root = p->Left;
-//        }
-//        else {
-//            timPhanTuTheMang(Root->Left, p);
-//        }
-//        
-//        delete p;
-//    }
-//}
+// p là Node phải nhất của cây con trái (lớn nhất của cây con trái) thế mạng sẽ xóa
+// Root la cay con trai cua Node can xoa
+void TimPhanTuTheMang_KhuDeQuy(NODE *&Root, NODE *&p)
+{
+    // q là Node thế mạng cần xóa
+    NODE *q = Root;
+    NODE *k = p; // k là Node đứng trước Node q để khi cần có thể truy xuất về cha của nó. Khởi đầu thì k = p (Node cần xóa)
+    
+    while(q->Right != NULL)
+    {
+        k = q; // k là node đứng trước node q nên trước khi q trỏ đi đâu khác thì k cập nhật lại là q
+        q = q->Right;
+    }
+
+    // Sau vòng lặp thì q là Node phải nhất (Tức là nếu trỏ phải lần nữa thì sẽ là NULL => q là phải nhất)
+
+    // Phải để đoạn lệnh này trước 2 đoạn lệnh sau để cập nhật liên kết cho xong rồi từ đó mới muốn cho trỏ đi đâu thì trỏ. Nếu không sẽ bị lỗi nếu để 2 đoạn lệnh dưới lên trên đoạn lệnh này
+    if(q->Data > k->Data)
+        k->Right = q->Left;
+//    else if(q->Data < k->Data)
+//        k->Left = q->Left;
+
+    if(q->Left != NULL)
+        q->Left->Cha = k;
+
+    p->Data = q->Data; // Gán giá trị của Node thế mạng (Root) sang giá trị của Node cần xóa (p)
+    p = q; // Cho con trỏ p trỏ tới Node thế mạng (q) để kết thúc hàm thì sẽ free(p) chính là free(q)
+}
+
+
+// return 1: Xóa thành công
+// return 0: Không xóa thành công (Node cần xóa không tồn tại trong cây)
+int XoaNodeTrongCay_KhuDeQuy(NODE *&Root, TU x) // x là giá trị cần xóa ra khỏi cây
+{
+    NODE *q = Root;
+    NODE *k = NULL; // k là Node đứng trước Node q để khi cần có thể truy xuất về cha của nó
+    while(q != NULL)
+    {
+        if(x > q->Data)
+        {
+            k = q; // k là node đứng trước node q nên trước khi q trỏ đi đâu khác thì k cập nhật lại là q
+            q = q->Right;
+        }
+        else if(x < q->Data)
+        {
+            k = q; // k là node đứng trước node q nên trước khi q trỏ đi đâu khác thì k cập nhật lại là q
+            q = q->Left;
+        }
+        else // tìm thấy x trong cây tại Node q => tiến hành xóa
+        {
+            NODE *p = q; // p là Node sẽ bị xóa: Lý do dùng Node tạm p để xóa mà không xóa trực tiếp q bởi vì lỡ trong cùng 1 hàm sau khi xóa xong lại có nhu cầu duyệt cây tiếp thì lại duyệt dựa theo Node q nếu mà q bị xóa thì đâu còn duyệt được nữa
+
+            // TH1: Node cần xóa là Node lá
+            // TH2: Node cần xóa là Node có 1 con
+
+            // Giữ liên kết với phần còn lại của Node bị xóa
+            if(p->Left == NULL)
+            {
+                // k là Node cha của Node q cần xóa => k sẽ trỏ liên kết để giữ cháu của nó (giữ con của node cần xóa)
+                // Làm sao biết k phải trỏ Left hay Right đến cháu của nó? => tùy thuộc q cần xóa đang là con trái hay con phải của k
+                if(k != NULL) // k có tồn tại
+                {
+                    if(p->Data > k->Data)
+                        k->Right = p->Right;
+                    else if(p->Data < k->Data)
+                        k->Left = p->Right;
+
+                    if(p->Right != NULL)
+                        p->Right->Cha = k;
+                }
+                else // Nếu ngay từ đầu k rỗng (tức là Node p cần xóa chính là Node gốc của cây
+                {
+                    Root = Root->Right; // Cập nhật trực tiếp Node gốc của cây sẽ trỏ sang con của nó
+                    
+                    if(Root != NULL)
+                        Root->Cha = NULL;
+                }
+            }
+            else if(p->Right == NULL)
+            {
+                if(k != NULL) // k có tồn tại
+                {
+                    // k là Node cha của Node q cần xóa => k sẽ trỏ liên kết để giữ cháu của nó (giữ con của node cần xóa)
+                    // Làm sao biết k phải trỏ Left hay Right đến cháu của nó? => tùy thuộc q cần xóa đang là con trái hay con phải của k
+                    if(p->Data > k->Data)
+                        k->Right = p->Left;
+                    else if(p->Data < k->Data)
+                        k->Left = p->Left;
+
+                    if(p->Left != NULL)
+                        p->Left->Cha = k;
+                }
+                else // Nếu ngay từ đầu k rỗng (tức là Node p cần xóa chính là Node gốc của cây
+                {
+                    Root = Root->Left; // Cập nhật trực tiếp Node gốc của cây sẽ trỏ sang con của nó
+                    
+                    if(Root != NULL)
+                        Root->Cha = NULL;
+                }
+            }
+            else // p->Left != NULL && p->Right != NULL => TH3: Node cần xóa là Node có đủ 2 con
+            {
+                TimPhanTuTheMang_KhuDeQuy(q->Left, p); // Tìm phần tử thế mạng: Phải nhất của cây con trái
+            }
+            delete p; // giải phóng p
+            return 1; // Xóa thành công - kết thúc hàm
+        }
+    }
+    return 0; // Không xóa thành công (Node cần xóa không tồn tại trong cây)
+}
 
 #endif /* Quan_Ly_Tu_Dien_Anh_Viet_hpp */

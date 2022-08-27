@@ -24,6 +24,7 @@ menucha:
     do{
         printf("\n===============> Menu <===============\n");
         printf("\n1. Them tu moi vao tu dien");
+        printf("\n2. Xoa mot tu trong tu dien");
         printf("\n0. Thoat chuong trinh");
         printf("\n======================================\n");
 
@@ -65,20 +66,20 @@ menucha:
     }
     else if(menu1 == 2)
     {
-//        Word s;
-//        fflush(stdin);
-//        cout << "\nNhap vao tu Tieng Anh can xoa khoi cay tu dien: ";
-//        getline(cin, s.Eng);
-//
-//        // Nhớ là phải có hàm này để chuẩn hóa tất cả thành chữ thường mới so sánh được
-//        strlwr(s.Eng);
-//
-//        int kq = XoaNodeTrongCay_KhuDeQuy(Root, s);
-//
-//        if(kq == 1)
-//            cout << "\nDa xoa thanh cong tu: " << s.TiengAnh << " ra khoi cay";
-//        else if(kq == 0)
-//            cout << "\nKhong tim thay tu " << s.TiengAnh << " trong cay nen khong xoa duoc!";
+        TU s;
+        fflush(stdin);
+        cout << "\nNhap vao tu Tieng Anh can xoa khoi cay tu dien: ";
+        getline(cin, s.Eng);
+
+        // Nhớ là phải có hàm này để chuẩn hóa tất cả thành chữ thường mới so sánh được
+        strlwr(s.Eng);
+
+        int kq = XoaNodeTrongCay_KhuDeQuy(Root, s);
+
+        if(kq == 1)
+            cout << "\nDa xoa thanh cong tu: " << s.Eng << " ra khoi cay";
+        else if(kq == 0)
+            cout << "\nKhong tim thay tu " << s.Eng << " trong cay nen khong xoa duoc!";
     }
     
     
