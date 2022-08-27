@@ -82,14 +82,14 @@ NODE* timNode_KhuDeQuy(NODE* Root, TU x)
 {
     NODE* p = Root;
     NODE* q = p;
-    while (Root != NULL) {
+    while (p != NULL) {
         q = p;
         
         if (x > p->Data) {
-            Root = Root->Right;
+            p = p->Right;
         }
         else if (x < p->Data) {
-            Root = Root->Left;
+            p = p->Left;
         }
         else {
             return p;
