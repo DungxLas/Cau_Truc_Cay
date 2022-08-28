@@ -351,4 +351,89 @@ int XoaNodeTrongCay_KhuDeQuy(NODE *&Root, TU x) // x là giá trị cần xóa r
     return 0; // Không xóa thành công (Node cần xóa không tồn tại trong cây)
 }
 
+void DocFileTuDien(NODE *&Root)
+{
+    ifstream FileIn;
+    FileIn.open("tudien.txt", ios_base::in);
+
+    if(!FileIn)
+    {
+        cout << "\nKhong tim thay tap tin tudien.txt nen cay ban dau se khoi tao rong (khong co du lieu san trong cay)";
+        FileIn.close();
+        return;
+    }
+
+    // Nếu vẫn chạy được xuống dưới đây tức là có tồn tại tập tin => đọc dữ liệu vào cây
+    cout << "\nDu lieu tu dien trong tap tin tudien.txt da duoc doc vao cay thanh cong";
+
+    while(!FileIn.eof())
+    {
+        TU x;
+        getline(FileIn, x.Eng, ':');
+        getline(FileIn, x.Vie);
+
+        if(x.Eng != "")
+        {
+            ThemNode_KhuDeQuy(Root, x);
+        }
+        
+    }
+
+    FileIn.close();
+}
+
+void GhiFileTuDien(NODE *Root)
+{
+    ofstream FileOut;
+    FileOut.open("tudien.txt", ios_base::out);
+    
+    if(Root != NULL)
+    {
+        char *s = "NLR";
+        NODE *cha = Root->Cha;
+        Root->Cha = NULL; // quy ước Root chính là gốc của cây đang xét (nó có thể là cây nhỏ cho nên phải cho điều kiện dừng là Root->Cha = NULL)
+        
+        while(true)
+        {
+            if(Root->ThuTuDuyet <= 2)
+            {
+                if(s[Root->ThuTuDuyet] == 'N' || s[Root->ThuTuDuyet] == 'n')
+                {
+                    FileOut << Root->Data.Eng << ":" << Root->Data.Vie << endl;
+
+                    Root->ThuTuDuyet++;
+                }
+                else if(s[Root->ThuTuDuyet] == 'L' || s[Root->ThuTuDuyet] == 'l')
+                {
+                    Root->ThuTuDuyet++;
+
+                    if(Root->Left != NULL)
+                        Root = Root->Left;
+                }
+                else if(s[Root->ThuTuDuyet] == 'R' || s[Root->ThuTuDuyet] == 'r')
+                {
+                    Root->ThuTuDuyet++;
+
+                    if(Root->Right != NULL)
+                        Root = Root->Right;
+                }
+            }
+            else // khi đi vào đây tức là 1 node đã đi hết thang thứ tự duyệt rồi, lúc này không đi tới được nữa mà phải lùi về cha của nó để xét theo hướng khác
+            {
+                Root->ThuTuDuyet = 0; // trước khi trở về cha thì sẽ reset lại thứ tự duyệt của node đó về 0 để có thể sau hàm này còn nhu cầu duyệt tiếp kiểu khác nữa
+
+                if(Root->Cha == NULL)
+                {
+                    Root->Cha = cha; // trả lại cha ban đầu của Root;
+                    break; // ĐIỀU KIỆN DỪNG => TỪ GỐC TRỎ VỀ CHA SẼ LÀ NULL => DỪNG LẠI
+                }
+                else
+                    Root = Root->Cha;
+            }
+        }
+    }
+    
+    FileOut.close();
+}
+
 #endif /* Quan_Ly_Tu_Dien_Anh_Viet_hpp */
