@@ -141,8 +141,6 @@ menucha:
                     cout << "\nKhong them duoc do khong du bo nho de cap phat";
 
             }
-
-            
         }
         else // không tìm thấy
             cout << "\nKhong tim thay tu Tieng Anh: " << s.Eng << " trong cay nen khong cap nhat duoc!";

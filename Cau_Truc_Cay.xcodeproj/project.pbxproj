@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		74AD211328B716270009688D /* Quan_Ly_Tu_Dien_Anh_Viet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74AD211128B716270009688D /* Quan_Ly_Tu_Dien_Anh_Viet.cpp */; };
+		7410B5D628BE43E0008FB3CD /* CayAVL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7410B5D528BE43DF008FB3CD /* CayAVL.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		7403940A2869F545000F2C1A /* Doc_Gia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Doc_Gia.h; sourceTree = "<group>"; };
 		7403940B2869F580000F2C1A /* Doc_Gia.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Doc_Gia.cpp; sourceTree = "<group>"; };
+		7410B5D528BE43DF008FB3CD /* CayAVL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CayAVL.cpp; sourceTree = "<group>"; };
 		744269AB288860CB00373FD6 /* Cay_Nhi_Phan_TimKiem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cay_Nhi_Phan_TimKiem.cpp; sourceTree = "<group>"; };
 		744269AC288860CB00373FD6 /* Cay_Nhi_Phan_TimKiem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cay_Nhi_Phan_TimKiem.hpp; sourceTree = "<group>"; };
 		74517F16284E3E3E000BF74B /* Cay_Nhi_Phan_Linked.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cay_Nhi_Phan_Linked.h; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 				74DD72892877D89900132A1E /* test.cpp */,
 				744269AB288860CB00373FD6 /* Cay_Nhi_Phan_TimKiem.cpp */,
 				74AD211128B716270009688D /* Quan_Ly_Tu_Dien_Anh_Viet.cpp */,
+				7410B5D528BE43DF008FB3CD /* CayAVL.cpp */,
 			);
 			path = Cau_Truc_Cay;
 			sourceTree = "<group>";
@@ -141,7 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74AD211328B716270009688D /* Quan_Ly_Tu_Dien_Anh_Viet.cpp in Sources */,
+				7410B5D628BE43E0008FB3CD /* CayAVL.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
