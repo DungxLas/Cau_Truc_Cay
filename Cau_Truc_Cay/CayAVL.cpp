@@ -188,17 +188,13 @@ int XetTinhCanBangVaCanBangLaiTai1Node_KhuDeQuy(Node *&Root, Node *&NodeDangXet)
     int chieucaoconphai = 0;
 
     if(NodeDangXet->Left != NULL)
-        //chieucaocontrai = TinhChieuCaoCay_DeQuy(ConMoi->Left);
-            chieucaocontrai = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Left);
+        chieucaocontrai = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Left);
 
     if(NodeDangXet->Right != NULL)
-        //chieucaoconphai = TinhChieuCaoCay_DeQuy(ConMoi->Right);
-            chieucaoconphai = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Right);
+        chieucaoconphai = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Right);
 
     if(abs(chieucaocontrai - chieucaoconphai) > 1) // mất cân bằng
     {
-        //printf("\n=> Cay bi mat can bang tai Node %c", NodeDangXet->Data);
-
         Node *ChaCuaNodeBiMatCanBang = NULL;
 
         if(NodeDangXet->Cha != NULL)
@@ -210,17 +206,13 @@ int XetTinhCanBangVaCanBangLaiTai1Node_KhuDeQuy(Node *&Root, Node *&NodeDangXet)
             int chieucaoconphai_2 = 0;
 
             if(NodeDangXet->Left->Left != NULL)
-                //chieucaocontrai_2 = TinhChieuCaoCay_DeQuy(ConMoi->Left->Left);
-                    chieucaocontrai_2 = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Left->Left);
+                chieucaocontrai_2 = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Left->Left);
 
             if(NodeDangXet->Left->Right != NULL)
-                //chieucaoconphai_2 = TinhChieuCaoCay_DeQuy(ConMoi->Left->Right);
-                    chieucaoconphai_2 = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Left->Right);
+                chieucaoconphai_2 = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Left->Right);
 
             if(chieucaocontrai_2 >= chieucaoconphai_2) // Trái - Trái
             {
-                //printf("\nMat can bang Trai - Trai");
-                //printf("\n=> Quay phai tai Node %c voi Root = %c & Pivot = %c", NodeDangXet->Data, NodeDangXet->Data, NodeDangXet->Left->Data);
                 quayPhai(NodeDangXet);
 
                 // Sau khi quay xong kiểm tra nếu mới quay tại Node gốc của cây thì cập nhật lại Root là node đó
@@ -229,11 +221,8 @@ int XetTinhCanBangVaCanBangLaiTai1Node_KhuDeQuy(Node *&Root, Node *&NodeDangXet)
             }
             else // Trái - Phải
             {
-                //printf("\nMat can bang Trai - Phai");
-                //printf("\nBuoc 1: Quay trai tai Node %c voi Root = %c & Pivot = %c", NodeDangXet->Left->Data, NodeDangXet->Left->Data, NodeDangXet->Left->Right->Data);
                 quayTrai(NodeDangXet->Left);
 
-                //printf("\nBuoc 2: Quay phai tai Node %c voi Root = %c & Pivot = %c", NodeDangXet->Data, NodeDangXet->Data, NodeDangXet->Left->Data);
                 quayPhai(NodeDangXet);
 
                 // Sau khi quay xong kiểm tra nếu mới quay tại Node gốc của cây thì cập nhật lại Root là node đó
@@ -247,17 +236,13 @@ int XetTinhCanBangVaCanBangLaiTai1Node_KhuDeQuy(Node *&Root, Node *&NodeDangXet)
             int chieucaoconphai_2 = 0;
 
             if(NodeDangXet->Right->Left != NULL)
-                //chieucaocontrai_2 = TinhChieuCaoCay_DeQuy(ConMoi->Right->Left);
-                    chieucaocontrai_2 = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Right->Left);
+                chieucaocontrai_2 = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Right->Left);
 
             if(NodeDangXet->Right->Right != NULL)
-                //chieucaoconphai_2 = TinhChieuCaoCay_DeQuy(ConMoi->Right->Right);
-                    chieucaoconphai_2 = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Right->Right);
+                chieucaoconphai_2 = TinhChieuCaoCuaCay_KhongDeQuyKhongStack(NodeDangXet->Right->Right);
 
             if(chieucaoconphai_2 >= chieucaocontrai_2) // Phải - Phải
             {
-                //printf("\nMat can bang Phai - Phai");
-                //printf("\n=> Quay trai tai Node %c voi Root = %c & Pivot = %c", NodeDangXet->Data, NodeDangXet->Data, NodeDangXet->Right->Data);
                 quayTrai(NodeDangXet);
 
                 // Sau khi quay xong kiểm tra nếu mới quay tại Node gốc của cây thì cập nhật lại Root là node đó
@@ -266,11 +251,8 @@ int XetTinhCanBangVaCanBangLaiTai1Node_KhuDeQuy(Node *&Root, Node *&NodeDangXet)
             }
             else // Phải - Trái
             {
-                //printf("\nMat can bang Phai - Trai");
-                //printf("\nBuoc 1: Quay phai tai Node %c voi Root = %c & Pivot = %c", NodeDangXet->Right->Data, NodeDangXet->Right->Data, NodeDangXet->Right->Left->Data);
                 quayPhai(NodeDangXet->Right);
 
-                //printf("\nBuoc 2: Quay trai tai Node %c voi Root = %c & Pivot = %c", NodeDangXet->Data, NodeDangXet->Data, NodeDangXet->Right->Data);
                 quayTrai(NodeDangXet);
 
                 // Sau khi quay xong kiểm tra nếu mới quay tại Node gốc của cây thì cập nhật lại Root là node đó
@@ -290,6 +272,82 @@ int XetTinhCanBangVaCanBangLaiTai1Node_KhuDeQuy(Node *&Root, Node *&NodeDangXet)
         return 1;
     }
     return 0;
+}
+
+// Trả về 1: Nếu tại Node có bị mất cân bằng và tiến hành cân bằng lại
+// Trả về 0: Nếu tại Node không có mất cân bằng
+int XetTinhCanBangVaCanBangLaiTai1Node_DeQuy(Node *&Root)
+{
+    int chieucaocontrai = 0;
+    int chieucaoconphai = 0;
+
+    if(Root->Left != NULL)
+        chieucaocontrai = tinhChieuCaoCay_DeQuy(Root->Left);
+
+    if(Root->Right != NULL)
+        chieucaoconphai = tinhChieuCaoCay_DeQuy(Root->Right);
+
+    if(abs(chieucaocontrai - chieucaoconphai) > 1) // mất cân bằng
+    {
+        //printf("\n=> Cay bi mat can bang tai Node %c", Root->Data);
+
+        if(chieucaocontrai > chieucaoconphai) // Lệch trái
+        {
+            int chieucaocontrai_2 = 0;
+            int chieucaoconphai_2 = 0;
+
+            if(Root->Left->Left != NULL)
+                chieucaocontrai_2 = tinhChieuCaoCay_DeQuy(Root->Left->Left);
+
+            if(Root->Left->Right != NULL)
+                chieucaoconphai_2 = tinhChieuCaoCay_DeQuy(Root->Left->Right);
+
+            if(chieucaocontrai_2 >= chieucaoconphai_2) // Trái - Trái
+            {
+                //printf("\nMat can bang Trai - Trai");
+                //printf("\n=> Quay phai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Left->Data);
+                quayPhai(Root);
+            }
+            else // Trái - Phải
+            {
+                //printf("\nMat can bang Trai - Phai");
+                //printf("\nBuoc 1: Quay trai tai Node %c voi Root = %c & Pivot = %c", Root->Left->Data, Root->Left->Data, Root->Left->Right->Data);
+                quayTrai(Root->Left);
+
+                //printf("\nBuoc 2: Quay phai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Left->Data);
+                quayPhai(Root);
+            }
+        }
+        else // Lệch phải
+        {
+            int chieucaocontrai_2 = 0;
+            int chieucaoconphai_2 = 0;
+
+            if(Root->Right->Left != NULL)
+                chieucaocontrai_2 = tinhChieuCaoCay_DeQuy(Root->Right->Left);
+
+            if(Root->Right->Right != NULL)
+                chieucaoconphai_2 = tinhChieuCaoCay_DeQuy(Root->Right->Right);
+
+            if(chieucaoconphai_2 >= chieucaocontrai_2) // Phải - Phải
+            {
+                //printf("\nMat can bang Phai - Phai");
+                //printf("\n=> Quay trai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Right->Data);
+                quayTrai(Root);
+            }
+            else // Phải - Trái
+            {
+                //printf("\nMat can bang Phai - Trai");
+                //printf("\nBuoc 1: Quay phai tai Node %c voi Root = %c & Pivot = %c", Root->Right->Data, Root->Right->Data, Root->Right->Left->Data);
+                quayPhai(Root->Right);
+
+                //printf("\nBuoc 2: Quay trai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Right->Data);
+                quayTrai(Root);
+            }
+        }
+        return 1; // Node bị mất cân bằng và đã cân bằng xong
+    }
+    return 0; // Node không có mất cân bằng
 }
 
 
@@ -344,82 +402,6 @@ int ThemNodeVaoCay_KhuDeQuy(Node *&Root, char x) // thêm giá trị x vào cây
     return 1; // thành công
 }
 
-//// Trả về 1: Nếu tại Node có bị mất cân bằng và tiến hành cân bằng lại
-//// Trả về 0: Nếu tại Node không có mất cân bằng
-//int XetTinhCanBangVaCanBangLaiTai1Node_DeQuy(NODE *&Root)
-//{
-//    int chieucaocontrai = 0;
-//    int chieucaoconphai = 0;
-//
-//    if(Root->Left != NULL)
-//        chieucaocontrai = TinhChieuCaoCay_DeQuy(Root->Left);
-//
-//    if(Root->Right != NULL)
-//        chieucaoconphai = TinhChieuCaoCay_DeQuy(Root->Right);
-//
-//    if(abs(chieucaocontrai - chieucaoconphai) > 1) // mất cân bằng
-//    {
-//        //printf("\n=> Cay bi mat can bang tai Node %c", Root->Data);
-//
-//        if(chieucaocontrai > chieucaoconphai) // Lệch trái
-//        {
-//            int chieucaocontrai_2 = 0;
-//            int chieucaoconphai_2 = 0;
-//
-//            if(Root->Left->Left != NULL)
-//                chieucaocontrai_2 = TinhChieuCaoCay_DeQuy(Root->Left->Left);
-//
-//            if(Root->Left->Right != NULL)
-//                chieucaoconphai_2 = TinhChieuCaoCay_DeQuy(Root->Left->Right);
-//
-//            if(chieucaocontrai_2 >= chieucaoconphai_2) // Trái - Trái
-//            {
-//                //printf("\nMat can bang Trai - Trai");
-//                //printf("\n=> Quay phai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Left->Data);
-//                QuayPhai(Root);
-//            }
-//            else // Trái - Phải
-//            {
-//                //printf("\nMat can bang Trai - Phai");
-//                //printf("\nBuoc 1: Quay trai tai Node %c voi Root = %c & Pivot = %c", Root->Left->Data, Root->Left->Data, Root->Left->Right->Data);
-//                QuayTrai(Root->Left);
-//
-//                //printf("\nBuoc 2: Quay phai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Left->Data);
-//                QuayPhai(Root);
-//            }
-//        }
-//        else // Lệch phải
-//        {
-//            int chieucaocontrai_2 = 0;
-//            int chieucaoconphai_2 = 0;
-//
-//            if(Root->Right->Left != NULL)
-//                chieucaocontrai_2 = TinhChieuCaoCay_DeQuy(Root->Right->Left);
-//
-//            if(Root->Right->Right != NULL)
-//                chieucaoconphai_2 = TinhChieuCaoCay_DeQuy(Root->Right->Right);
-//
-//            if(chieucaoconphai_2 >= chieucaocontrai_2) // Phải - Phải
-//            {
-//                //printf("\nMat can bang Phai - Phai");
-//                //printf("\n=> Quay trai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Right->Data);
-//                QuayTrai(Root);
-//            }
-//            else // Phải - Trái
-//            {
-//                //printf("\nMat can bang Phai - Trai");
-//                //printf("\nBuoc 1: Quay phai tai Node %c voi Root = %c & Pivot = %c", Root->Right->Data, Root->Right->Data, Root->Right->Left->Data);
-//                QuayPhai(Root->Right);
-//
-//                //printf("\nBuoc 2: Quay trai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Right->Data);
-//                QuayTrai(Root);
-//            }
-//        }
-//        return 1; // Node bị mất cân bằng và đã cân bằng xong
-//    }
-//    return 0; // Node không có mất cân bằng
-//}
-
 int themNodeVaoCay_DeQuy(Node *&Root, char x)
 {
     int ketqua;
@@ -431,93 +413,245 @@ int themNodeVaoCay_DeQuy(Node *&Root, char x)
             ketqua = themNodeVaoCay_DeQuy(Root->Left, x);
         }
         else {
-            return 0;
+            return 0; //Data can nhap da co trong cay
         }
     }
     else {
         Node *con = getNode(x);
         
         if (con == NULL) {
-            return -1;
+            return -1; //Ko them Node thanh cong do ko du bo nho
         }
         
         Root = con;
         
-        return 1;
+        return 1; //Them Node thanh cong
     }
     
     if (ketqua == 0) {
-        return 0;
+        return 0; //Data can nhap da co trong cay
     }
     else if (ketqua == -1) {
-        return -1;
+        return -1; //Ko them Node thanh cong do ko du bo nho
     }
     else if (ketqua == 1) { //Them thanh cong, quay ve cha, kiem tra can bang o node cha truoc do
-        int heightLeft = 0;
-        int heightRight = 0;
-        
-        if (Root->Left != NULL) {
-            heightLeft = tinhChieuCaoCay_DeQuy(Root->Left);
+        ketqua = XetTinhCanBangVaCanBangLaiTai1Node_DeQuy(Root);
+        if (ketqua == 1) {
+            return 2; //Node bị mất cân bằng và đã cân bằng xong
         }
-        if (Root->Right != NULL) {
-            heightRight = tinhChieuCaoCay_DeQuy(Root->Right);
+        return 3; // Node không có mất cân bằng ketqua = 0
+    }
+    else if (ketqua == 2) {
+        return 2; //Node bị mất cân bằng và đã cân bằng xong
+    }
+    else return 3; // Node không có mất cân bằng ketqua = 3
+}
+
+// p là Node thế mạng sẽ xóa
+int TimPhanTuTheMang_DeQuy(Node *&Root, Node *&p)
+{
+    int ketqua;
+
+    if(Root->Left != NULL)
+        ketqua = TimPhanTuTheMang_DeQuy(Root->Left, p);
+    else // Lúc này Root->Left == NULL => Root là NODE TRÁI nhất => đó là Node thế mạng
+    {
+        p->data = Root->data; // Gán giá trị của Node thế mạng (Root) sang giá trị của Node cần xóa (p)
+        p = Root; // Cho con trỏ p trỏ tới Node thế mạng (Root) để kết thúc hàm thì sẽ free(p) chính là free(Root)
+        Root = Root->Right; // Mục đích: Giữ liên kết với các Node con của Node bị xóa - Vì Root đang là Node TRÁI nhất => sẽ không có con trái nữa chỉ có thể có con phải hoặc không có con => cứ cho trỏ tới con phải
+
+        return 1;
+    }
+
+    if(ketqua == 1)
+    {
+        //printf("\nXet nguoc ve Node %c", Root->Data);
+        XetTinhCanBangVaCanBangLaiTai1Node_DeQuy(Root);
+        return 1; // Để tiếp tục xét lùi về cho các cha tiếp theo
+    }
+    else return 0;
+}
+
+// return 1: Xóa thành công
+// return 0: Không xóa thành công (Node cần xóa không tồn tại trong cây)
+int XoaNodeTrongCay_DeQuy(Node *&Root, char x) // x là giá trị cần xóa ra khỏi cây
+{
+    int ketqua;
+
+    // Điều kiện dừng
+    if(Root == NULL)
+        return 0; // kết thúc vì cây không có gì để xóa hoặc không tìm thấy Node cần xóa (giá trị cần xóa x không tồn tại trong cây)
+
+    // Bước đệ quy
+    if(x > Root->data)
+        ketqua = XoaNodeTrongCay_DeQuy(Root->Right, x);
+    else if(x < Root->data)
+        ketqua = XoaNodeTrongCay_DeQuy(Root->Left, x);
+    else // tìm thấy x trong cây tại Node Root => xóa
+    {
+        Node *p = Root; // p là Node sẽ bị xóa
+
+        // TH1: Node cần xóa là Node lá
+        // TH2: Node cần xóa là Node có 1 con
+
+        // Giữ liên kết với phần còn lại của Node bị xóa
+        if(p->Left == NULL)
+        {
+            Root = p->Right;
         }
-        if (abs(heightLeft - heightRight) > 1) {
-            cout << "\n=> Cay bi mat can bang tai Node " << Root->data;
-            if (heightLeft > heightRight) {
-                //lech trai
-                int heightLeftLeft = 0;
-                int heightLeftRight = 0;
-                
-                if (Root->Left->Left != NULL) {
-                    heightLeftLeft = tinhChieuCaoCay_DeQuy(Root->Left->Left);
+        else if(p->Right == NULL)
+        {
+            Root = p->Left;
+        }
+        else // p->Left != NULL && p->Right != NULL => TH3: Node cần xóa là Node có đủ 2 con
+        {
+            TimPhanTuTheMang_DeQuy(Root->Right, p); // TRÁI nhất của cây con phải
+
+            //printf("\nXet nguoc ve Node %c", Root->Data);
+            XetTinhCanBangVaCanBangLaiTai1Node_DeQuy(Root);
+        }
+
+        delete p; // giải phóng p
+
+        return 1; // xóa thành công
+    }
+
+    if(ketqua == 1)
+    {
+        // Bắt đầu xét tính cân bằng của Root (Root chính là lần lượt cha của Node BỊ xóa)
+        XetTinhCanBangVaCanBangLaiTai1Node_DeQuy(Root);
+
+        //printf("\nXet nguoc ve Node %c", Root->Data);
+
+        return 1; // để tiếp tục xét lùi về các Node trước đó mới có giá trị cho biến ketqua để mà đi so sánh //Ham luon luon tra ve 1 neu cay co Node can xoa
+    }
+    else return 0;
+}
+
+// p là Node thế mạng sẽ xóa
+void TimPhanTuTheMang_KhuDeQuy(Node *&Root, Node *&p)
+{
+    // q là Node thế mạng cần xóa
+    Node *q = Root;
+    Node *k = p; // k là Node đứng trước Node q để khi cần có thể truy xuất về cha của nó. Khởi đầu thì k = p (Node cần xóa)
+
+    while(q->Left != NULL)
+    {
+        k = q; // k là node đứng trước node q nên trước khi q trỏ đi đâu khác thì k cập nhật lại là q
+        q = q->Left;
+    }
+
+    // Sau vòng lặp thì q là Node trái nhất (Tức là nếu trỏ trái lần nữa thì sẽ là NULL => q là trái nhất)
+
+    // Phải để đoạn lệnh này trước 2 đoạn lệnh sau để cập nhật liên kết cho xong rồi từ đó mới muốn cho trỏ đi đâu thì trỏ. Nếu không sẽ bị lỗi nếu để 2 đoạn lệnh dưới lên trên đoạn lệnh này
+    if(q->data > k->data)
+        k->Right = q->Right; // Lúc này q đã là trái nhất nên sẽ không có con trái nữa => chỉ có thể có con phải => cho giữ lại phần con phải
+    else if(q->data < k->data)
+        k->Left = q->Right; // Lúc này q đã là trái nhất nên sẽ không có con trái nữa => chỉ có thể có con phải => cho giữ lại phần con phải
+
+    if(q->Right != NULL)
+        q->Right->Cha = k;
+
+    p->data = q->data; // Gán giá trị của Node thế mạng (Root) sang giá trị của Node cần xóa (p)
+    p = q; // Cho con trỏ p trỏ tới Node thế mạng (q) để kết thúc hàm thì sẽ free(p) chính là free(q)
+}
+
+
+// return 1: Xóa thành công
+// return 0: Không xóa thành công (Node cần xóa không tồn tại trong cây)
+int XoaNodeTrongCay_KhuDeQuy(Node *&Root, char x) // x là giá trị cần xóa ra khỏi cây
+{
+    Node *q = Root;
+    Node *k = NULL; // k là Node đứng trước Node q để khi cần có thể truy xuất về cha của nó
+    while(q != NULL)
+    {
+        if(x > q->data)
+        {
+            k = q; // k là node đứng trước node q nên trước khi q trỏ đi đâu khác thì k cập nhật lại là q
+            q = q->Right;
+        }
+        else if(x < q->data)
+        {
+            k = q; // k là node đứng trước node q nên trước khi q trỏ đi đâu khác thì k cập nhật lại là q
+            q = q->Left;
+        }
+        else // tìm thấy x trong cây tại Node q => tiến hành xóa
+        {
+            Node *p = q; // p là Node sẽ bị xóa: Lý do dùng Node tạm p để xóa mà không xóa trực tiếp q bởi vì lỡ trong cùng 1 hàm sau khi xóa xong lại có nhu cầu duyệt cây tiếp thì lại duyệt dựa theo Node q nếu mà q bị xóa thì đâu còn duyệt được nữa
+
+            // TH1: Node cần xóa là Node lá
+            // TH2: Node cần xóa là Node có 1 con
+
+            // Giữ liên kết với phần còn lại của Node bị xóa
+            if(p->Left == NULL)
+            {
+                // k là Node cha của Node q cần xóa => k sẽ trỏ liên kết để giữ cháu của nó (giữ con của node cần xóa)
+                // Làm sao biết k phải trỏ Left hay Right đến cháu của nó? => tùy thuộc q cần xóa đang là con trái hay con phải của k
+                if(k != NULL) // k có tồn tại
+                {
+                    if(p->data > k->data)
+                        k->Right = p->Right;
+                    else if(p->data < k->data)
+                        k->Left = p->Right;
+
+                    if(p->Right != NULL)
+                        p->Right->Cha = k;
                 }
-                if (Root->Left->Right != NULL) {
-                    heightLeftRight = tinhChieuCaoCay_DeQuy(Root->Left->Right);
-                }
-                
-                if (heightLeftLeft >= heightLeftRight) { // Trai - Trai
-                    cout << "\nMat can bang Trai - Trai";
-                    cout << "\nQuay phai tai Node " << Root->data;
-                    quayPhai(Root);
-                }
-                else { // Trai - Phai
-                    cout << "\nMat can bang Trai - Phai";
-                    cout << "\nQuay trai tai Node " << Root->Left->data << " va Quay phai tai Node " << Root->data;
-                    quayTrai(Root->Left);
-                    quayPhai(Root);
+                else // Nếu ngay từ đầu k rỗng (tức là Node p cần xóa chính là Node gốc của cây
+                {
+                    Root = Root->Right; // Cập nhật trực tiếp Node gốc của cây sẽ trỏ sang con của nó
+
+                    if(Root != NULL)
+                        Root->Cha = NULL;
                 }
             }
-            else {
-                //lech phai
-                int heightRightLeft = 0;
-                int heightRightRight = 0;
-                
-                if (Root->Right->Left != NULL) {
-                    heightRightLeft = tinhChieuCaoCay_DeQuy(Root->Right->Left);
+            else if(p->Right == NULL)
+            {
+                if(k != NULL) // k có tồn tại
+                {
+                    // k là Node cha của Node q cần xóa => k sẽ trỏ liên kết để giữ cháu của nó (giữ con của node cần xóa)
+                    // Làm sao biết k phải trỏ Left hay Right đến cháu của nó? => tùy thuộc q cần xóa đang là con trái hay con phải của k
+                    if(p->data > k->data)
+                        k->Right = p->Left;
+                    else if(p->data < k->data)
+                        k->Left = p->Left;
+
+                    if(p->Left != NULL)
+                        p->Left->Cha = k;
                 }
-                if (Root->Right->Right != NULL) {
-                    heightRightRight = tinhChieuCaoCay_DeQuy(Root->Right->Right);
-                }
-                
-                if (heightRightRight >= heightRightLeft) { // Phai - Phai
-                    cout << "\nMat can bang Phai - Phai";
-                    cout << "\nQuay trai tai Node " << Root->data;
-                    quayTrai(Root);
-                }
-                else { // Phai - Trai
-                    cout << "\nMat can bang Phai - Trai";
-                    cout << "\nQuay phai tai Node " << Root->Right->data << " va Quay trai tai Node " << Root->data;
-                    quayPhai(Root->Right);
-                    quayTrai(Root);
+                else // Nếu ngay từ đầu k rỗng (tức là Node p cần xóa chính là Node gốc của cây
+                {
+                    Root = Root->Left; // Cập nhật trực tiếp Node gốc của cây sẽ trỏ sang con của nó
+
+                    if(Root != NULL)
+                        Root->Cha = NULL;
                 }
             }
+            else // p->Left != NULL && p->Right != NULL => TH3: Node cần xóa là Node có đủ 2 con
+            {
+                TimPhanTuTheMang_KhuDeQuy(q->Right, p); // Tìm phần tử thế mạng: TRÁI nhất của cây con phải
+            }
+
+            // 3 dòng code này phải để trước dòng lệnh free(p) vì nếu free(p) rồi thì đâu còn giá trị để trỏ tới cha mà truyền qua Node ChaCuaNodeBiXoa
+            Node *ChaCuaNodeBiXoa = NULL;
+            if(p->Cha != NULL)
+                ChaCuaNodeBiXoa = p->Cha;
+
+            while(ChaCuaNodeBiXoa != NULL)
+            {
+                // Xét tính cân bằng của Node ChaCuaNodeBiXoa
+                //printf("\nXet tinh can bang cua Node: %c", ChaCuaNodeBiXoa->Data);
+
+                XetTinhCanBangVaCanBangLaiTai1Node_KhuDeQuy(Root, ChaCuaNodeBiXoa);
+
+                ChaCuaNodeBiXoa = ChaCuaNodeBiXoa->Cha;
+            }
+
+            delete p; // giải phóng p
+            return 1; // Xóa thành công - kết thúc hàm
         }
-        return 2;
     }
-    else {
-        return 2;
-    }
+    return 0; // Không xóa thành công (Node cần xóa không tồn tại trong cây)
 }
 
 void NLR(Node *Root)
