@@ -289,8 +289,6 @@ int XetTinhCanBangVaCanBangLaiTai1Node_DeQuy(Node *&Root)
 
     if(abs(chieucaocontrai - chieucaoconphai) > 1) // mất cân bằng
     {
-        //printf("\n=> Cay bi mat can bang tai Node %c", Root->Data);
-
         if(chieucaocontrai > chieucaoconphai) // Lệch trái
         {
             int chieucaocontrai_2 = 0;
@@ -304,17 +302,12 @@ int XetTinhCanBangVaCanBangLaiTai1Node_DeQuy(Node *&Root)
 
             if(chieucaocontrai_2 >= chieucaoconphai_2) // Trái - Trái
             {
-                //printf("\nMat can bang Trai - Trai");
-                //printf("\n=> Quay phai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Left->Data);
                 quayPhai(Root);
             }
             else // Trái - Phải
             {
-                //printf("\nMat can bang Trai - Phai");
-                //printf("\nBuoc 1: Quay trai tai Node %c voi Root = %c & Pivot = %c", Root->Left->Data, Root->Left->Data, Root->Left->Right->Data);
                 quayTrai(Root->Left);
 
-                //printf("\nBuoc 2: Quay phai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Left->Data);
                 quayPhai(Root);
             }
         }
@@ -331,17 +324,12 @@ int XetTinhCanBangVaCanBangLaiTai1Node_DeQuy(Node *&Root)
 
             if(chieucaoconphai_2 >= chieucaocontrai_2) // Phải - Phải
             {
-                //printf("\nMat can bang Phai - Phai");
-                //printf("\n=> Quay trai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Right->Data);
                 quayTrai(Root);
             }
             else // Phải - Trái
             {
-                //printf("\nMat can bang Phai - Trai");
-                //printf("\nBuoc 1: Quay phai tai Node %c voi Root = %c & Pivot = %c", Root->Right->Data, Root->Right->Data, Root->Right->Left->Data);
                 quayPhai(Root->Right);
 
-                //printf("\nBuoc 2: Quay trai tai Node %c voi Root = %c & Pivot = %c", Root->Data, Root->Data, Root->Right->Data);
                 quayTrai(Root);
             }
         }
@@ -368,7 +356,6 @@ int ThemNodeVaoCay_KhuDeQuy(Node *&Root, char x) // thêm giá trị x vào cây
 
 
         Node *p = timKiemNode_KhuDeQuy(Root, x);
-        //NODE *p = TimKiemNode_DeQuy(Root, x, NULL);
 
         if(p->data != x) // vì thế phải xét tiêu chí giá trị của p phải khác x => thêm mới vào chứ không bị trùng
         {
@@ -465,7 +452,6 @@ int TimPhanTuTheMang_DeQuy(Node *&Root, Node *&p)
 
     if(ketqua == 1)
     {
-        //printf("\nXet nguoc ve Node %c", Root->Data);
         XetTinhCanBangVaCanBangLaiTai1Node_DeQuy(Root);
         return 1; // Để tiếp tục xét lùi về cho các cha tiếp theo
     }
@@ -637,17 +623,15 @@ int XoaNodeTrongCay_KhuDeQuy(Node *&Root, char x) // x là giá trị cần xóa
             if(p->Cha != NULL)
                 ChaCuaNodeBiXoa = p->Cha;
 
+            delete p; // giải phóng p
+            
             while(ChaCuaNodeBiXoa != NULL)
             {
-                // Xét tính cân bằng của Node ChaCuaNodeBiXoa
-                //printf("\nXet tinh can bang cua Node: %c", ChaCuaNodeBiXoa->Data);
-
                 XetTinhCanBangVaCanBangLaiTai1Node_KhuDeQuy(Root, ChaCuaNodeBiXoa);
 
                 ChaCuaNodeBiXoa = ChaCuaNodeBiXoa->Cha;
             }
-
-            delete p; // giải phóng p
+           
             return 1; // Xóa thành công - kết thúc hàm
         }
     }
